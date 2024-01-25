@@ -17,7 +17,7 @@ metaData.ecoCode.food    = {'biCij'};
 metaData.ecoCode.gender  = {'Dtmf'};
 metaData.ecoCode.reprod  = {'O'};
 
-metaData.T_typical  = C2K(26.4); % K, body temp 
+metaData.T_typical  = C2K(26.4); % K, body temp --> THIS SEEMS WAY TOO HIGH, ESP. COMPARED TO TEMP.AM
 metaData.data_0     = {'ab'; 'tp'; 'am'; 'Lb'; 'Lp'; 'Li'; 'Ww0'; 'Wwb'; 'Wdb'; 'Wwi'; 'Ri'; 'pXi'; 'pAi'}; 
 metaData.data_1     = {'t-L_f'; 't-Ww'; 't-JOe'; 'LN'}; 
 
@@ -69,7 +69,7 @@ data.Wwb = 46.22; units.Wwb = 'g'; label.Wwb = 'wet weight at birth'; bibkey.Wwb
   comment.Wwb = 'Average between 47.10 g (Hsu2020, n = 17) and 45.34 g (Wyne2023, n = 38)';
 data.Wdb = 9.776; units.Wdb = 'g'; label.Wdb = 'dry weight at birth'; bibkey.Wdb = {'Thom1993'};
   comment.Wdb = 'No new NWA data (there is EP data but not relevant to this task)';
-data.Wwi = 683333; units.Wwi = 'g'; label.Wwi = 'ultimate wet weight'; bibkey.Wwi = {'Wood1982'};
+data.Wwi = 683.33*1e3; units.Wwi = 'g'; label.Wwi = 'ultimate wet weight'; bibkey.Wwi = {'Wood1982'};
   comment.Wwi = 'Guiness book of animal facts and feats - Gerald L Wood, 1982 cites Duron 1978 for a record of a capture male in a fishing ent at Longeville, Vendee Dept, W France that was 800 kg, with two other records off of West France at 650 and 600 kg. All averaged for this value.';
 
 data.Ri = 0.4147; units.Ri = '#/d'; label.Ri = 'ultimate reproduction rate'; bibkey.Ri = {'ESA2020'};
@@ -78,15 +78,20 @@ data.Ri = 0.4147; units.Ri = '#/d'; label.Ri = 'ultimate reproduction rate'; bib
 
 data.pAm  = 0.41;    units.pAm  = 'W/kg'; label.pAm  = 'mass-specific metabolic rate '; bibkey.pAm  = 'Jone2009';   
   temp.pAm = C2K(20);  units.temp.pAm = 'K'; label.temp.pAm = 'temperature';
-  comment.pAm = 'about 350 kg; assume that production is small and metab rate corrspronds to assim rate. AO note: Average between trendline for mass-specific growth rate for 100, 200, 300, 400 kg individuals is .407, but all data from Wall2008 averages to 0.95 for resting, active, laying, field, max, and calculated values'; 
+  comment.pAm = {'about 350 kg; assume that production is small (=no energy fixed in structure or gametes) and metab rate corresponds to assim rate. ', ... 
+      'AO note: Average between trendline for mass-specific growth rate for 100, 200, 300, 400 kg individuals is .407,', ...
+      'but all data from Wall2008 averages to 0.95 for resting, active, laying, field, max, and calculated values'}; 
 
 data.pXm  = 0.81;    units.pXm  = 'W/kg'; label.pXm  = 'maximum intake of jellyfish of fully grown individual'; bibkey.pXm  = 'Jone2009';   
   temp.pXm = C2K(20);  units.temp.pXm = 'K'; label.temp.pXm = 'temperature';
-  comment.pXm = 'about 350 kg, 82 kg jelly fish/d for 250-450 kg turtle wit 200 J/g  = 82/350*200000/24/60/60 W/kg. AO note: Energy budget calculations between EP and NWA, but suggests that average required feeding rate for St. Croix (NWA) leatherbacks for a 2.85 remigration interval is 127 kg/d. Leatherback prey energy content is 310 kJ/kg wet mass from Davenport & Balazs 1991).';
+  comment.pXm = {'about 350 kg, 82 kg jelly fish/d for 250-450 kg turtle wit 200 J/g  = 82/350*200000/24/60/60 W/kg. ', ...
+      'AO note: Energy budget calculations between EP and NWA, but suggests that average required feeding rate for ', ...
+      'St. Croix (NWA) leatherbacks for a 2.85 remigration interval is 127 kg/d. Leatherback prey energy content is ', ... 
+      '310 kJ/kg wet mass from Davenport & Balazs 1991).'};
 
 % uni-variate data
 % SCL = straight carapace length
-tLW = [ ... (sime since birth (yr) SCL (cm) weight (kg)
+tLW_Jone = [ ... (sime since birth (yr) SCL (cm) weight (kg)
 0.003 6.31  0.046
 0.01  6.53  0.05
 0.03  7.22  0.06
@@ -172,22 +177,27 @@ tLW = [ ... (sime since birth (yr) SCL (cm) weight (kg)
 1.72 62.50 27.20
 1.85 67.00 31.96
 1.93 69.00 34.84];
-tLW(:,1) = 365 * tLW(:,1); % convert yr to d
-tLW(:,3) = 1e3 * tLW(:,3); % convert kg to g
-data.tL = tLW(:,1:2);
-units.tL   = {'d', 'cm'};  label.tL = {'time since birth', 'straight carapace length'};  
-temp.tL    = C2K(24);  units.temp.tL = 'K'; label.temp.tL = 'temperature';
-bibkey.tL = 'Jone2009';
-comment.tL = ['captive animals, fed with Pacific Ocean squid, Todarodes pacificus; '...
+tLW_Jone(:,1) = 365 * tLW_Jone(:,1); % convert yr to d
+tLW_Jone(:,3) = 1e3 * tLW_Jone(:,3); % convert kg to g
+data.tL_Jone = tLW_Jone(:,1:2);
+units.tL_Jone   = {'d', 'cm'};  label.tL_Jone = {'time since birth', 'straight carapace length, Jones'};  
+temp.tL_Jone    = C2K(24);  units.temp.tL_Jone = 'K'; label.temp.tL_Jone = 'temperature';
+bibkey.tL_Jone = 'Jone2009';
+comment.tL_Jone = ['captive animals, fed with Pacific Ocean squid, Todarodes pacificus; '...
   '(mantle and tentacles only), vitamins (ReptaviteTM), and calcium (Rep-CalTM), '...
   'blended with unflavored gelatin in hot water.'];
 %
-data.tW = tLW(:,[1 3]); 
-units.tW   = {'d', 'g'};  label.tW = {'time since birth', 'wet weight'};  
-temp.tW    = C2K(24);  units.temp.tW = 'K'; label.temp.tW = 'temperature';
-bibkey.tW = 'Jone2009';
+data.tW_Jone = tLW_Jone(:,[1 3]); 
+units.tW_Jone   = {'d', 'g'};  label.tW_Jone = {'time since birth', 'wet weight, Jones'};  
+temp.tW_Jone    = C2K(24);  units.temp.tW_Jone = 'K'; label.temp.tW_Jone = 'temperature';
+bibkey.tW_Jone = 'Jone2009';
 
-% tL-data from Jone2009, collected from lit; temp 24 C?
+
+data.LW_Jone = tLW_Jone(:,[2 3]); 
+units.LW_Jone   = {'cm', 'g'};  label.LW_Jone = {'straight carapace length', 'wet weight, Jones'};  
+bibkey.LW_Jone = 'Jone2009';
+
+% tL-data from Jone2009, collected from lit; temp 24 C? -- NM note: adult data from Zug et al - scheletochronology!
 data.tL1 = [ ... % SCL (cm), time since birth (yr)
 0.061	5.869
 0.062	4.338
@@ -241,8 +251,10 @@ units.tL1   = {'d', 'cm'};  label.tL1 = {'time since birth', 'straight carapace 
 temp.tL1    = C2K(24);  units.temp.tL1 = 'K'; label.temp.tL1 = 'temperature';
 bibkey.tL1 = 'Jone2009';
 
+%---> ANA, please input here data for individual turtles . Table 3.2, and table 3.3. in Jones2009
+
 % Wyneken 2023 data
-tLW1 = [ ... (time since birth (d) SCL (cm) weight (g)
+tLW_Wyn = [ ... (time since birth (d) SCL (cm) weight (g)
 0	6.12	44.2
 0	5.87	44
 0	6.03	43.8
@@ -514,16 +526,20 @@ tLW1 = [ ... (time since birth (d) SCL (cm) weight (g)
 58	9.00	118.6
 61	9.44	137.4
 64	8.75	107.8];
-data.tL2 = tLW1(:,1:2);
-units.tL2   = {'d', 'cm'};  label.tL2 = {'time since birth', 'straight carapace length'};  
-temp.tL2    = C2K(24);  units.temp.tL2 = 'K'; label.temp.tL2 = 'temperature';
-bibkey.tL2 = 'Wyne2023';
-comment.tL2 = 'captive animals fed Jeanette Wyeneken diet';
+data.tL_Wyne = tLW_Wyn(:,1:2);
+units.tL_Wyne   = {'d', 'cm'};  label.tL_Wyne = {'time since birth', 'straight carapace length'};  
+temp.tL_Wyne    = C2K(24);  units.temp.tL_Wyne = 'K'; label.temp.tL2tL_Wyne = 'temperature';
+bibkey.tL_Wyne = 'Wyne2023';
+comment.tL_Wyne = 'captive animals fed Jeanette Wyeneken diet';
 %
-data.tW1 = tLW1(:,[1 3]); 
-units.tW1   = {'d', 'g'};  label.tW1 = {'time since birth', 'wet weight'};  
-temp.tW1   = C2K(24);  units.temp.tW1 = 'K'; label.temp.tW1 = 'temperature';
-bibkey.tW1 = 'Wyne2023';
+data.tW_Wyne = tLW_Wyn(:,[1 3]); 
+units.tW_Wyne   = {'d', 'g'};  label.tW_Wyne = {'time since birth', 'wet weight'};  
+temp.tW_Wyne   = C2K(24);  units.temp.tW_Wyne = 'K'; label.temp.tW_Wyne = 'temperature';
+bibkey.tW_Wyne = 'Wyne2023';
+
+data.LW_Wyne = tLW_Wyn(:,[2 3]); 
+units.LW_Wyne   = {'cm', 'g'};  label.LW_Wyne = {'SCL, Wyne', 'wet weight'};  
+bibkey.LW_Wyne = 'Wyne2023';
 
 % time-respiration for embryo
 data.tJO_e = [ ... % d, resp for mean of 6 eggs
@@ -655,7 +671,7 @@ metaData.biblist.(bibkey) = ['''@', type, '{', bibkey, ', ' bib, '}'';'];
 %
 bibkey = 'Aven2009'; type = 'article'; bib = [ ...
 'author = {Avens, L., Taylor, J. C., Goshe, L. R., Jones, T. T., & Hastings, M. }, ' ... 
-'title = {Use of skeletochronological analysis to estimate the age of leatherback sea turtles Dermochelys coriacea in the western North Atlantic. }, ' ... 
+'title = {Use of skeletochronological analysis to estimate the age of leatherback sea turtles \textit{Dermochelys coriacea} in the western North Atlantic. }, ' ... 
 'journal = {Endangered Species Research}, ' ... 
 'year = {2009}, ' ... 
 'volume = {8(3)}, ' ... 
@@ -689,14 +705,14 @@ metaData.biblist.(bibkey) = ['''@', type, '{', bibkey, ', ', bib, '}'';'];
 %
 bibkey = 'ESA2020'; type = 'techreport'; bib = [ ...
 'author = {United States. National Marine Fisheries Service ; U.S. Fish and Wildlife Service}, ' ... 
-'title = {Endangered Species Act status review of the leatherback turtle (Dermochelys coriacea)}, ' ... 
+'title = {Endangered Species Act status review of the leatherback turtle (\textit{Dermochelys coriacea})}, ' ... 
 'institution = {NMFS (National Marine Fisheries Service)}, ' ... 
 'year = {2020}'];
 metaData.biblist.(bibkey) = ['''@', type, '{', bibkey, ', ', bib, '}'';'];
 %
 bibkey = 'Fraz1991'; type = 'article'; bib = [ ...
 'author = {Tucker, A. D., & Frazer, N. B.}, ' ... 
-'title = {Reproductive variation in leatherback turtles, Dermochelys coriacea, at Culebra national wildlife refuge, Puerto Rico.}, ' ... 
+'title = {Reproductive variation in leatherback turtles, \textit{Dermochelys coriacea}, at {C}ulebra national wildlife refuge, {P}uerto {R}ico.}, ' ... 
 'journal = {Herpetologica}, ' ... 
 'year = {1991}, ' ...  
 'pages = {115-124.}'];
@@ -704,7 +720,7 @@ metaData.biblist.(bibkey) = ['''@', type, '{', bibkey, ', ', bib, '}'';'];
 %
 bibkey = 'Giro2021'; type = 'article'; bib = [ ...
 'author = {Girondot, Marc, Baptiste Mourrain, Damien Chevallier, and Matthew H. Godfrey.}, ' ... 
-'title = {Maturity of a giant: age and size reaction norm for sexual maturity for Atlantic leatherback turtles}, ' ... 
+'title = {Maturity of a giant: age and size reaction norm for sexual maturity for {A}tlantic leatherback turtles}, ' ... 
 'journal = {Marine Ecology}, ' ... 
 'year = {2021}, ' ... 
 'volume = {42(5)}, ' ... 
@@ -713,7 +729,7 @@ metaData.biblist.(bibkey) = ['''@', type, '{', bibkey, ', ', bib, '}'';'];
 %
 bibkey = 'Hirt1987'; type = 'techreport'; bib = [ ...
 'author = {Hirth, H. F. }, ' ... 
-'title = { Some aspects of the ecology of the leatherback turtle Dermochelys coriacea at Laguna Jalova, Costa Rica}, ' ... 
+'title = { Some aspects of the ecology of the leatherback turtle \textit{Dermochelys coriacea} at {L}aguna {J}alova, {C}osta {R}ica}, ' ... 
 'institution = {US Department of Commerce, National Oceanic and Atmospheric Administration, National Marine Fisheries Service.}, ' ... 
 'year = {1987}, ' ... 
 'volume = {56}'];
@@ -726,18 +742,9 @@ bibkey = 'Hsu2020'; type = 'phdthesis'; bib = [ ...
 'year = {2020}'];
 metaData.biblist.(bibkey) = ['''@', type, '{', bibkey, ', ', bib, '}'';'];
 %
-bibkey = 'Kooy2010'; type = 'Book'; bib = [ ...  % used in setting of chemical parameters and pseudodata
-'author = {Kooijman, S.A.L.M.}, ' ...
-'year = {2010}, ' ...
-'title  = {Dynamic Energy Budget theory for metabolic organisation}, ' ...
-'publisher = {Cambridge Univ. Press, Cambridge}, ' ...
-'pages = {Table 4.2 (page 150), 8.1 (page 300)}, ' ...
-'howpublished = {\url{http://www.bio.vu.nl/thb/research/bib/Kooy2010.html}}'];
-metaData.biblist.(bibkey) = ['''@', type, '{', bibkey, ', ' bib, '}'';'];
-%
 bibkey = 'Thom1993'; type = 'article'; bib = [ ...
 'author = {Thompson, Michael B.}, ' ... 
-'title = {Oxygen consumption and energetics of development in eggs of the leatherback turtle, Dermochelys coriacea.}, ' ... 
+'title = {Oxygen consumption and energetics of development in eggs of the leatherback turtle, \textit{Dermochelys coriacea}.}, ' ... 
 'journal = {Comparative Biochemistry and Physiology Part A: Physiology}, ' ... 
 'year = {1993}, ' ... 
 'volume = { 104, no. 3}, ' ... 
@@ -753,7 +760,7 @@ metaData.biblist.(bibkey) = ['''@', type, '{', bibkey, ', ', bib, '}'';'];
 %
 bibkey = 'Wyne2023'; type = 'misc'; bib = [ ...
 'author = {Jeanette Wyneken}, ' ... 
-'note = {Wyneken lab experiements at Florida Atlantic University: CONFIDENTIAL, use permitted for this model through Upwell Turtles collaboration}, ' ... 
+'note = {Wyneken lab experiements at {F}lorida {A}tlantic {U}niversity: CONFIDENTIAL, use permitted for this model through Upwell Turtles collaboration}, ' ... 
 'year = {2023}'];
 metaData.biblist.(bibkey) = ['''@', type, '{', bibkey, ', ', bib, '}'';'];
 %

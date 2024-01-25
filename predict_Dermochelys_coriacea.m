@@ -11,7 +11,8 @@ function [prdData, info] = predict_Dermochelys_coriacea(par, data, auxData)
   TC_Ri = tempcorr(temp.Ri, T_ref, T_A);
   TC_pAm = tempcorr(temp.pAm, T_ref, T_A);
   TC_pXm = tempcorr(temp.pXm, T_ref, T_A);
-  TC_tL = tempcorr(temp.tL, T_ref, T_A);
+  TC_Jone = tempcorr(temp.tL_Jone, T_ref, T_A); % Jones experiments
+  TC_Wyne = tempcorr(temp.tL_Wyne, T_ref, T_A); % Wyneken experiments
   TC_tJOe = tempcorr(temp.tJO_e, T_ref, T_A);
   %TC_LN = tempcorr(temp.LN, T_ref, T_A);
   
@@ -79,25 +80,24 @@ function [prdData, info] = predict_Dermochelys_coriacea(par, data, auxData)
   prdData.pAm = pT_Am;
   prdData.pXm = pT_Xm;
   
-  % uni-variate data
+  %% uni-variate data
   
-  % time-length
-  tvel = get_tp(pars_tp, f_tL2, [], tL2(:,1)*k_M*TC_tL);
-  ELw_2 = L_m * tvel(:,4)/ del_M;   % cm, length 
-  %
-  tvel = get_tp(pars_tp, f_tL1, [], tL1(:,1)*k_M*TC_tL);
+  % time-length-weight
+  tvel = get_tp(pars_tp, f_Jone, [], tL_Jone(:,1)*k_M*TC_Jone);
+  EL_Jone = L_m * tvel(:,4);   % cm, structural length 
+  ELw_Jone = EL_Jone/ del_M; % cm, physical length
+  EWw_Jone = EL_Jone.^3 .* (1 + tvel(:,3) * ome);   % g, weight
+  EWw2_Jone = (LW_Jone(:,1)*del_M).^3 .* (1 + tvel(:,3) * ome);   % g, weight for LW data
+  
+  tvel = get_tp(pars_tp, f_tL1, [], tL1(:,1)*k_M*TC_Jone);
   ELw_1 = L_m * tvel(:,4)/ del_M;   % cm, length 
+    
+  tvel = get_tp(pars_tp, f_Wyne, [], tL_Wyne(:,1)*k_M*TC_Wyne);
+  EL_Wyne = L_m * tvel(:,4);   % cm, structural length 
+  ELw_Wyne = EL_Wyne/del_M; %cm , physical length
+  EWw_Wyne = EL_Wyne.^3 .* (1 + tvel(:,3) * ome);   % g, weight
+  EWw2_Wyne = (LW_Wyne(:,1)*del_M).^3 .* (1 + tvel(:,3) * ome);   % g, weight for LW data
   %
-  tvel = get_tp(pars_tp, f_tL, [], tL(:,1)*k_M*TC_tL);
-  ELw = L_m * tvel(:,4)/ del_M;   % cm, length 
-
-  % time-weight
-  tvel = get_tp(pars_tp, f_tW1, [], tW1(:,1)*k_M*TC_tL);
-  EWw_1 = (L_m * tvel(:,4)).^3 .* (1 + tvel(:,3) * w);   % g, weight
-  %
-  tvel = get_tp(pars_tp, f_tW, [], tW(:,1)*k_M*TC_tL);
-  EWw = (L_m * tvel(:,4)).^3 .* (1 + tvel(:,3) * w);   % g, weight
-
   % time-weight, O2 consumption for embryo at f and T
   vT = v * TC_tJOe; pT_M = p_M * TC_tJOe; 
   LE_0 = [1e-6; E_0];    % cm, J, initial conditions
@@ -120,17 +120,19 @@ function [prdData, info] = predict_Dermochelys_coriacea(par, data, auxData)
 
 
    % length - fecundity per nest; % Fecundity = [egg number]/# of nests = [kap_R * R_T /E0]/nest.LF
-    R =  reprod_rate(LN(:,1)*del_M_a, f, pars_R);  % #/d, reproduction rate at T, 
+    R =  reprod_rate(LN(:,1)*del_M_a, f_LN, pars_R);  % #/d, reproduction rate at T, 
     % do NOT correct for temp here, because temp correction in R and fecund cancel out
     %     N =length(data.LF);  
     EN = R * 365 ./ fecund.LN;  % #/ clutch
 
   % pack to output
-  prdData.tL = ELw;
-  prdData.tW = EWw;
-  prdData.tW1 = EWw_1;
+  prdData.tL_Jone = ELw_Jone;
+  prdData.tW_Jone = EWw_Jone;
+  prdData.LW_Jone = EWw2_Jone;
+  prdData.tW_Wyne = EWw_Wyne;
+  prdData.LW_Wyne = EWw2_Wyne;
   prdData.tL1 = ELw_1;
-  prdData.tL2 = ELw_2;
+  prdData.tL_Wyne = ELw_Wyne;
   prdData.tJO_e = EJT_Oe;
   prdData.LN = EN;
 
