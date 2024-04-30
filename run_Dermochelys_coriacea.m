@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 close all; 
 global pets 
 
@@ -18,4 +19,5 @@ return
  estim_pars; 
  estim_pars;
  estim_options('max_step_number', 3e2); 
+
  estim_pars;

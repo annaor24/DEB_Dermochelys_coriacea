@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Updates 2024/04/30
 * function for del_M implemented, but not sure how much it brings: the captive and wild data still have a problem with matching predicted growth in length and weight simultaneously
 * Wyneken data look OK -- if f reduced towards end of data, might be a nice fit; more data on different feeding levels might become available (change f later if this happens)
@@ -15,3 +16,4 @@ Updates 2024/01/25
 * added LW datasets for Wyneken and Jones data --> TO DO: we need to check why and how these curves are so off (in different ways) and if del_M changes anything.
 * f is now the same for datasets belonging to the same study (eg Jones, Wyneken) --> TO DO: improve fits
   
+>>>>>>> e7fe51a214cd6d8c2e458840456aa46feb787a90
