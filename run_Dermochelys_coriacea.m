@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 close all; 
 global pets 
 
