@@ -56,11 +56,11 @@ data.am = (19.25+11)*365; units.am = 'd'; label.am = 'life span'; bibkey.am = {'
   temp.am = C2K(21.13); units.temp.am = 'K'; label.temp.am = 'temperature';
   comment.am = 'Mean longevity aftern maturation is 11 years in the NW Atlantic, 19.25+11*365 for d';
 
-data.Lb = 6.18; units.Lb = 'cm'; label.Lb = 'length at birth'; bibkey.Lb = {'Wyne2023'};
+data.Lb = 6.18; units.Lb = 'cm'; label.Lb = 'length at birth, SCL'; bibkey.Lb = {'Wyne2023'};
   comment.Lb = 'Previous data averaged with Wyneken 2023 day of hatching measurements.';
-data.Lp = 125.6; units.Lp = 'cm'; label.Lp = 'length at puberty'; bibkey.Lp = {'Aven2009'};
+data.Lp = 125.6; units.Lp = 'cm'; label.Lp = 'length at puberty, SCL'; bibkey.Lp = {'Aven2009'};
   comment.Lp = 'Mean maturation CCL for NWA is 129.2 cm converted to SCL using Avens 2009 methods (better regression than Jones et al., 2011 when tested on nesting female data).';
-data.Li = 203; units.Li = 'cm'; label.Li = 'ultimate length'; bibkey.Li = {'Giro2021'};
+data.Li = 203; units.Li = 'cm'; label.Li = 'ultimate length, SCL'; bibkey.Li = {'Giro2021'};
   comment.Li = 'Max SCL values for both sexes measured on the Atlantic French coast (n = 300) and males (n = 92)';
 
 data.Ww0 = 81.66; units.Ww0 = 'g'; label.Ww0 = 'initial wet weight'; bibkey.Ww0 = {'Hsu2020'};
@@ -90,11 +90,13 @@ data.pXm  = 0.81;    units.pXm  = 'W/kg'; label.pXm  = 'maximum intake of jellyf
       '310 kJ/kg wet mass from Davenport & Balazs 1991).'};
 
 % uni-variate data
-% SCL = straight carapace length
-tLW_Jone = [ ... (sime since birth (yr) SCL (cm) weight (kg)
-0.003 6.31  0.046
-0.01  6.53  0.05
-0.03  7.22  0.06
+% Table 3.1 in Jones 2009: used ONLY PARTLY, because data after 1.3 years dominated by 2 individuals, 
+% the general trend represented well by data in Table 3.2 (see below)
+% SCL = straight carapace length  
+tLW_Jone = [ ... (time since birth (yr) SCL (cm) weight (kg)
+0.003 6.31  0.046 % N = 20 turtles 
+0.01  6.53  0.05 % (N=19)
+0.03  7.22  0.06 % N=20
 0.05  7.81  0.08
 0.07  8.31  0.10
 0.08  8.91  0.12
@@ -102,17 +104,17 @@ tLW_Jone = [ ... (sime since birth (yr) SCL (cm) weight (kg)
 0.12 10.28  0.18
 0.14 10.76  0.21
 0.16 11.33  0.24
-0.18 12.10  0.28
-0.20 12.77  0.32
-0.22 13.20  0.37
-0.24 13.64  0.41
+0.18 12.10  0.28 % N = 16
+0.20 12.77  0.32 % N = 19
+0.22 13.20  0.37 % N = 18
+0.24 13.64  0.41 
 0.26 14.35  0.45
 0.28 14.92  0.51
 0.30 15.49  0.56
 0.32 16.04  0.62
-0.33 16.49  0.68
-0.35 17.50  0.82
-0.37  18.23 0.91
+0.33 16.49  0.68 % N = 16
+0.35 17.50  0.82 % N = 12
+0.37  18.23 0.91 % N = 10
 0.39 18.88  1.01
 0.41 19.41  1.10
 0.43 20.10  1.21
@@ -120,27 +122,27 @@ tLW_Jone = [ ... (sime since birth (yr) SCL (cm) weight (kg)
 0.47 21.19  1.39
 0.49 22.04  1.51
 0.51 22.61  1.68
-0.53 23.68  1.87
+0.53 23.68  1.87 % N = 9
 0.55 24.40  2.03
 0.56 25.14  2.28
 0.58 25.82  2.40
 0.60 26.27  2.63
-0.62 27.57  2.81
+0.62 27.57  2.81 % N = 7
 0.64 28.10  3.03
 0.66 28.61  3.20
 0.68 29.31  3.47
-0.70 30.21  3.77
+0.70 30.21  3.77 % N = 6
 0.72 30.92  4.15
 0.74 31.74  4.30
 0.76 32.29  4.51
 0.78 32.89  4.85
 0.79 33.36  5.10
-0.83 34.30  5.49
+0.83 34.30  5.49 % N = 5
 0.85 35.21  5.92
 0.87 35.36  6.15
 0.89 36.21  6.61
 0.91 36.81  6.75
-0.93 38.26  7.55
+0.93 38.26  7.55 % N = 4
 0.95 39.06  8.00
 0.97 39.75  8.40
 0.99 40.44  8.76
@@ -157,11 +159,11 @@ tLW_Jone = [ ... (sime since birth (yr) SCL (cm) weight (kg)
 1.22 47.36 12.87
 1.24 47.57 12.79
 1.25 47.86 13.23
-1.31 50.30 15.44
-1.33 52.00 17.26
+1.31 50.30 15.44 % N = 3
+1.33 52.00 17.26 % N = 2
 1.35 53.10 17.99
 1.37 53.90 18.68
-1.39 52.60 17.28
+1.39 52.60 17.28 % N = 1
 1.45 54.50 18.76
 1.47 55.45 18.72
 1.49 56.30 19.88
@@ -177,60 +179,136 @@ tLW_Jone = [ ... (sime since birth (yr) SCL (cm) weight (kg)
 1.72 62.50 27.20
 1.85 67.00 31.96
 1.93 69.00 34.84];
+Nind = find(tLW_Jone(:,1)>=1.31); % find rows where there are three or fewer individuals 
+
 tLW_Jone(:,1) = 365 * tLW_Jone(:,1); % convert yr to d
 tLW_Jone(:,3) = 1e3 * tLW_Jone(:,3); % convert kg to g
-data.tL_Jone = tLW_Jone(:,1:2);
+
+data.tL_Jone = tLW_Jone(1:Nind(1)-1,1:2); % all data with four or more individiduals 
 units.tL_Jone   = {'d', 'cm'};  label.tL_Jone = {'time since birth', 'straight carapace length, Jones'};  
 temp.tL_Jone    = C2K(24);  units.temp.tL_Jone = 'K'; label.temp.tL_Jone = 'temperature';
 bibkey.tL_Jone = 'Jone2009';
-comment.tL_Jone = ['captive animals, fed with Pacific Ocean squid, Todarodes pacificus; '...
+comment.tL_Jone = ['data from Table 3.1, captive animals, fed with Pacific Ocean squid, Todarodes pacificus; '...
   '(mantle and tentacles only), vitamins (ReptaviteTM), and calcium (Rep-CalTM), '...
   'blended with unflavored gelatin in hot water.'];
 %
-data.tW_Jone = tLW_Jone(:,[1 3]); 
+data.tW_Jone = tLW_Jone(1:Nind(1)-1,[1 3]); 
 units.tW_Jone   = {'d', 'g'};  label.tW_Jone = {'time since birth', 'wet weight, Jones'};  
 temp.tW_Jone    = C2K(24);  units.temp.tW_Jone = 'K'; label.temp.tW_Jone = 'temperature';
 bibkey.tW_Jone = 'Jone2009';
 
-
-data.LW_Jone = tLW_Jone(:,[2 3]); 
+data.LW_Jone = tLW_Jone(1:Nind(1)-1,[2 3]); 
 units.LW_Jone   = {'cm', 'g'};  label.LW_Jone = {'straight carapace length', 'wet weight, Jones'};  
 bibkey.LW_Jone = 'Jone2009';
+% 
+% % data below used for information only (only 3 or fewer individuals)
+% data.tL_Jone_i = tLW_Jone(Nind,1:2); % all data with four or more individiduals 
+% units.tL_Jone_i   = {'d', 'cm'};  label.tL_Jone_i = {'time since birth', 'straight carapace length, Jones'};  
+% temp.tL_Jone_i    = C2K(24);  units.temp.tL_Jone_i = 'K'; label.temp.tL_Jone_i = 'temperature';
+% bibkey.tL_Jone_i = 'Jone2009';
+% comment.tL_Jone_i = '(informative) data from Table 3.1, where only 3 or fewer individuals- NOT used in fitting';
+% data.tW_Jone_i = tLW_Jone(Nind,[1 3]); 
+% units.tW_Jone_i   = {'d', 'g'};  label.tW_Jone_i = {'time since birth', 'wet weight, Jones'};  
+% temp.tW_Jone_i    = C2K(24);  units.temp.tW_Jone_i = 'K'; label.temp.tW_Jone_i = 'temperature';
+% bibkey.tW_Jone_i = 'Jone2009';
+% data.LW_Jone_i = tLW_Jone(Nind,[2 3]); 
+% units.LW_Jone_i   = {'cm', 'g'};  label.LW_Jone_i = {'straight carapace length', 'wet weight, Jones'};  
+% bibkey.LW_Jone_i = 'Jone2009';
 
-% tL-data from Jone2009, collected from lit; temp 24 C? -- NM note: adult data from Zug et al - scheletochronology!
-data.tL1 = [ ... % SCL (cm), time since birth (yr)
-0.061	5.869
-0.062	4.338
-0.091	13.525
-0.092	12.504
-0.093	6.890
-0.154	14.545
-0.156	7.400
-0.218	8.421
-0.249	13.270
-0.279	21.180
-0.279	18.373
-0.281	10.973
-0.312	9.952
-0.373	21.180
-0.500	14.545
-0.529	24.753
-0.563	13.270
-0.564	10.463
-0.594	14.801
-0.625	16.587
-0.652	40.064
-0.654	28.836
-0.685	34.450
-0.782	21.691
-0.810	35.215
-0.967	38.788
-1.217	46.699
-1.279	48.740
-1.341	55.885
-1.721	43.126
-1.904	69.410
-3.694	84.976
+
+% Table 3.2 in Jones 2009 : captive reared turtles
+tLW_cap = [0.20	13.29	0.34	%this study
+0.43	20.69	1.28	%this study
+1.25	46.45	11.54	%this study
+0.60	24.65	2.36	%this study
+1.31	48.40	13.04	%this study
+0.60	24.06	2.20	%this study
+1.93	69.00	34.84	%this study
+0.33	15.01	0.58	%this study
+0.68	28.38	3.42	%this study
+0.26	14.62	0.46	%this study
+0.18	11.57	0.26	%this study
+1.37	55.40	20.36	%this study
+0.81	34.74	5.44	%this study
+0.24	12.05	0.30	%this study
+0.35	16.00	0.70	%this study
+0.33	17.15	0.75	%this study
+0.91	35.13	5.58	%this study
+0.33	13.69	0.37	%this study
+0.33	14.95	0.46	%this study
+0.51	19.87	1.20	%this study
+1.71	43.50	7.27	%Deraniyagala, 1939
+0.46	16.00	NaN	%Deraniyagala, 1939
+0.08	5.40	NaN	%Bels et al., 1988
+0.12	6.60	NaN	%Bels et al., 1988
+0.12	7.80	NaN	%Bels et al., 1988
+0.13	7.00	NaN	%Bels et al., 1988
+0.16	7.80	NaN	%Bels et al., 1988
+0.21	8.00	NaN	%Bels et al., 1988
+0.22	8.10	NaN	%Bels et al., 1988
+3.70	85.00	49.50	%Bels et al., 1988
+0.12	8.10	NaN	%Bels et al., 1988
+0.17	7.90	NaN	%Bels et al., 1988
+0.30	8.90	NaN	%Bels et al., 1988
+0.41	10.40	NaN	%Bels et al., 1988
+0.41	10.80	NaN	%Bels et al., 1988
+0.50	14.30	NaN	%Bels et al., 1988
+0.22	13.20	NaN	%Frayr, 1970
+0.67	21.6	1.04	%Phillips, 1977
+0.56	37.00	4.50	%Birkenmeier, 1970
+0.27	17.00	NaN	%Birkenmeier, 1970
+0.23	14.00	NaN	%Birkenmeier, 1970
+0.19	12.00	NaN	%Birkenmeier, 1970
+0.13	10.50	NaN	%Birkenmeier, 1970
+0.12	12.50	NaN	%Birkenmeier, 1970
+0.13	12.50	NaN	%Birkenmeier, 1970
+0.13	12.00	NaN	%Birkenmeier, 1970
+];
+
+tLW_cap(:,1) = 365 * tLW_cap(:,1); % convert yr to d
+tLW_cap(:,3) = 1e3 * tLW_cap(:,3); % convert kg to g
+
+data.tL_cap = tLW_cap(:,1:2); % age, length
+units.tL_cap   = {'d', 'cm'};  label.tL_cap = {'time since birth', 'straight carapace length, Jones captive'};  
+temp.tL_cap    = C2K(24);  units.temp.tL_cap = 'K'; label.temp.tL_cap = 'temperature';
+bibkey.tL_cap = 'Jone2009';
+comment.tL_cap = 'data from Table 3.2, captive animals. ''This study''from Jones 2009, other data from corresponding refs)';
+
+use = find(~isnan(tLW_cap(:,3)));
+data.tW_cap = tLW_cap(use,[1,3]); % age, wet weight
+units.tW_cap   = {'d', 'g'};  label.tW_cap = {'time since birth', 'wet weight, Jones captive'};  
+temp.tW_cap    = C2K(24);  units.temp.tW_cap = 'K'; label.temp.tW_cap = 'temperature';
+bibkey.tW_cap = 'Jone2009';
+comment.tW_cap = 'data from Table 3.2, captive animals. ''This study''from Jones 2009, other data from corresponding refs)';
+
+data.LW_cap = tLW_cap(use,[2,3]); % SCL, wet weight
+units.LW_cap   = {'cm', 'g'};  label.LW_cap = {'straight carapace length', 'wet weight, Jones captive'};  
+bibkey.LW_cap = 'Jone2009';
+
+
+% Table 3.3. , data from wild stradings or bycatch
+LW_wild = [39.00	7	%MTN(1996)
+8.50	0.096	%Deraniyagala, 1939
+10.40	0.19	%J.Wyneken (pers.comm)
+25.00	3.1	%J.Wyneken (pers.comm)
+70.40	44.5	%NOAA (NMFS/PIFSC)
+85.30	74.1	%NOAA (NMFS/PIFSC)
+70.00	35.45	%NOAA (NMFS/PIFSC)
+67.50	33.6	%NOAA (NMFS/PIFSC)
+20.00	1.85	%MTN(2004)
+31.00	3.3	%MTN(2004)
+11.50	0.17	%M.Conti (pers.comm)
+];
+
+data.LW_wild = [LW_wild(:,1), LW_wild(:,2)*1e3]; % SCL, wet weight
+units.LW_wild   = {'cm', 'g'};  label.LW_wild = {'straight carapace length', 'wet weight, Jones wild'};  
+bibkey.LW_wild = 'Jone2009';
+
+
+
+% tL-data from Jone2009 and literature; temp 24 C? -- NM note: adult data from Zug et al - scheletochronology! 
+% (plot Reader)
+data.tL_skel = [ ... % SCL (cm), time since birth (yr)
 8.810	131.930
 9.880	129.633
 13.683	139.585
@@ -246,12 +324,11 @@ data.tL1 = [ ... % SCL (cm), time since birth (yr)
 21.485	125.550
 22.582	139.585
 22.865	143.413];
-data.tL1(:,1) = 365 * data.tL1(:,1); % convert yr to d
-units.tL1   = {'d', 'cm'};  label.tL1 = {'time since birth', 'straight carapace length'};  
-temp.tL1    = C2K(24);  units.temp.tL1 = 'K'; label.temp.tL1 = 'temperature';
-bibkey.tL1 = 'Jone2009';
+data.tL_skel(:,1) = 365 * data.tL_skel(:,1); % convert yr to d
+units.tL_skel   = {'d', 'cm'};  label.tL_skel = {'time since birth', 'straight carapace length'};  
+temp.tL_skel    = C2K(24);  units.temp.tL_skel = 'K'; label.temp.tL1 = 'temperature';
+bibkey.tL_skel = 'Jone2009'; comment.tL_skel = 'triangles in Fig 3.2, probably wild, Zug and Parham 1996 cited in Jone2009';
 
-%---> ANA, please input here data for individual turtles . Table 3.2, and table 3.3. in Jones2009
 
 % Wyneken 2023 data
 tLW_Wyn = [ ... (time since birth (d) SCL (cm) weight (g)
@@ -596,12 +673,25 @@ txtData.label = label;
 txtData.bibkey = bibkey;
 txtData.comment = comment;
 
+%% Group plots
+set1 = {'tL_Jone','tL_cap', 'tL_skel'}; comment1 = {'Captive data + skeletochron data, Length, Jones 2009'};
+set2 = {'tW_Jone','tW_cap'}; comment2 = {'Captive data: Weight, Jones 2009'};
+set3 = {'LW_Jone','LW_cap', 'LW_wild'}; comment3 = {'Captive + wild data LW, Jones 2009'};
+%set6 = {'LW_0188f', 'LW_1883f', 'LW_0644f', 'LW_0882f', 'LW_1633f'};  comment6 = {'Length-Wet mass for 5 females (RIT Prince)'};
+%set7 = {'LW_1307m', 'LW_1097m', 'LW_0005m', 'LW_0097m', 'LW_0697m'}; comment7 = {'Length-Wet mass for 5 males (RIT Prince)'};
+%set8 = {'LW_UWW891', 'LW_UWW892'}; comment8 = {'Length-Wet mass for 2 individuals (RIT Prince)'};
+metaData.grp.sets = {set1, set2, set3};
+metaData.grp.comment = {comment1, comment2, comment3};
+
+
 %% Discussion points
 D1 = 'Jone2009: 1.3e11 g jellyfish converts to 2.6e13 J, so jellyfish have 200 J/g';
 D2 = 'mod_1: data on ingestion/metam revised, tJO_e, Ww0, Wdb data added';
 D3 = 'mod_1: pAm was ignorned because of inconsistency with other data and because allometric correction was applied for obtaining the specific rate';
 D4 = 'mod_1: Ww0 was ignorned because it needs detailed modelling of the contribution of water to weight';
-metaData.discussion = struct('D1',D1, 'D2',D2, 'D3',D3, 'D4',D4);
+D5 = ['mod_1: We use data from Jones 2009 (Tables 3.1, 3.2 and 3.3, combined with data from Zug et al  (1986) presented in figure 3.2) for parameter estimation.', ...
+    'Data from Table 3.1 used partially (where N>3), and tL1 data in the original entry had mixed captive and wild turtles- now revised'];
+metaData.discussion = struct('D1',D1, 'D2',D2, 'D3',D3, 'D4',D4, 'D5',D5);
 
 %% Facts
 F1 = ['all 7 species of sea turtles nest on beaches; '...

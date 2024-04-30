@@ -36,14 +36,14 @@ function [prdData, info] = predict_Dermochelys_coriacea(par, data, auxData)
 
   % puberty 
   L_p = L_m * l_p;                  % cm, structural length at puberty at f
-  Lw_p = L_p/ del_M;                % cm, physical length at puberty at f
+  Lw_p = L_p/ del_Ma;                % cm, physical length at puberty at f
   Ww_p = L_p^3 *(1 + f * w);        % g, wet weight at puberty 
   aT_p = t_p/ k_M/ TC_ap;           % d, age at puberty at f and T
 
   % ultimate
   l_i = f - l_T;                    % -, scaled ultimate length
   L_i = L_m * l_i;                  % cm, ultimate structural length at f
-  Lw_i = L_i/ del_M;                % cm, ultimate physical length at f
+  Lw_i = L_i/ del_Ma;                % cm, ultimate physical length at f
   Ww_i = L_i^3 * (1 + f * w);       % g, ultimate wet weight 
  
   % reproduction
@@ -61,8 +61,8 @@ function [prdData, info] = predict_Dermochelys_coriacea(par, data, auxData)
   pT_Xm = TC_pXm * p_Am * L^2/ kap_X/ 24/ 60/ 60/ 350; % W/kg, intake rate 
 
   % trying to make LN work
-  Lw_p = L_p/ del_M_a;            % cm, physical length at puberty at f
-  Lw_i = L_i/ del_M_a;            % cm, ultimate physical length at f
+  Lw_p = L_p/ del_Ma;            % cm, physical length at puberty at f
+  Lw_i = L_i/ del_Ma;            % cm, ultimate physical length at f
 
 
   % pack to output
@@ -82,22 +82,52 @@ function [prdData, info] = predict_Dermochelys_coriacea(par, data, auxData)
   
   %% uni-variate data
   
+  %% shape vector 
+%%setup for change in shape
+L_d = Lw_del*del_Ma; % structural length when change in shape complete
+
+  
   % time-length-weight
   tvel = get_tp(pars_tp, f_Jone, [], tL_Jone(:,1)*k_M*TC_Jone);
-  EL_Jone = L_m * tvel(:,4);   % cm, structural length 
-  ELw_Jone = EL_Jone/ del_M; % cm, physical length
-  EWw_Jone = EL_Jone.^3 .* (1 + tvel(:,3) * ome);   % g, weight
-  EWw2_Jone = (LW_Jone(:,1)*del_M).^3 .* (1 + tvel(:,3) * ome);   % g, weight for LW data
+  EL_Jone = L_m * tvel(:,4); L = EL_Jone;  % cm, structural length 
+  del_vec = ((L-L_b)*del_Ma + (L_d-L)*del_M) ./(L_d-L_b); % calculate weighted shape coeff
+ del_vec(del_vec<del_Ma)=del_Ma;  % replace unrealistic values with adult shape coeff
   
-  tvel = get_tp(pars_tp, f_tL1, [], tL1(:,1)*k_M*TC_Jone);
-  ELw_1 = L_m * tvel(:,4)/ del_M;   % cm, length 
-    
+ ELw_Jone = EL_Jone./ del_vec; % cm, physical length
+    EWw_Jone = EL_Jone.^3 .* (1 + tvel(:,3) * ome);   % g, weight
+%   EWw_Jone = EL_Jone.^3 .* (1 + f_Jone * ome);   % g, weight
+  
+  EWw2_Jone = (LW_Jone(:,1).* del_vec).^3 .* (1 + tvel(:,3) * ome);   % g, weight for LW data
+  
+  tvel = get_tp(pars_tp, f_Jone, [], tL_cap(:,1)*k_M*TC_Jone);
+  EL_cap = L_m * tvel(:,4); L = EL_cap;  % cm, structural length 
+  del_vec = ((L-L_b)*del_Ma + (L_d-L)*del_M) ./(L_d-L_b); % calculate weighted shape coeff
+ del_vec(del_vec<del_Ma)=del_Ma;  % replace unrealistic values with adult shape coeff
+  
+  ELw_cap = EL_cap./ del_vec; % cm, physical length
+  
+   tvel = get_tp(pars_tp, f_Jone, [], tW_cap(:,1)*k_M*TC_Jone);
+  EL_cap = L_m * tvel(:,4); L = EL_cap;  % cm, structural length 
+  del_vec = ((L-L_b)*del_Ma + (L_d-L)*del_M) ./(L_d-L_b); % calculate weighted shape coeff
+ del_vec(del_vec<del_Ma)=del_Ma;  % replace unrealistic values with adult shape coeff
+  EWw_cap = EL_cap.^3 .* (1 + tvel(:,3) * ome);   % g, weight
+  EWw2_cap = (LW_cap(:,1).* del_vec).^3 .* (1 + tvel(:,3) * ome);   % g, weight for LW data
+  %
+   %adult skeletochronology data, fig 3.2 in Jone
+  tvel = get_tp(pars_tp, f_tL1, [], tL_skel(:,1)*k_M*TC_Jone);
+  ELw_skel = L_m * tvel(:,4)/ del_M;   % cm, length 
+     % wild LW data
+   EWw_wild = (LW_wild(:,1).* del_M).^3 .* (1 + f_tL1 * ome);   % g, weight for LW data, simple shape coeff used
+  %
   tvel = get_tp(pars_tp, f_Wyne, [], tL_Wyne(:,1)*k_M*TC_Wyne);
   EL_Wyne = L_m * tvel(:,4);   % cm, structural length 
   ELw_Wyne = EL_Wyne/del_M; %cm , physical length
   EWw_Wyne = EL_Wyne.^3 .* (1 + tvel(:,3) * ome);   % g, weight
-  EWw2_Wyne = (LW_Wyne(:,1)*del_M).^3 .* (1 + tvel(:,3) * ome);   % g, weight for LW data
+  EWw2_Wyne = (LW_Wyne(:,1)*del_M).^3 .* (1 + tvel(:,3) * ome);   % g, weight for LW data; here all with baby shape
   %
+  
+  
+  
   % time-weight, O2 consumption for embryo at f and T
   vT = v * TC_tJOe; pT_M = p_M * TC_tJOe; 
   LE_0 = [1e-6; E_0];    % cm, J, initial conditions
@@ -120,18 +150,18 @@ function [prdData, info] = predict_Dermochelys_coriacea(par, data, auxData)
 
 
    % length - fecundity per nest; % Fecundity = [egg number]/# of nests = [kap_R * R_T /E0]/nest.LF
-    R =  reprod_rate(LN(:,1)*del_M_a, f_LN, pars_R);  % #/d, reproduction rate at T, 
+    R =  reprod_rate(LN(:,1)*del_Ma, f_LN, pars_R);  % #/d, reproduction rate at T, 
     % do NOT correct for temp here, because temp correction in R and fecund cancel out
     %     N =length(data.LF);  
     EN = R * 365 ./ fecund.LN;  % #/ clutch
 
   % pack to output
-  prdData.tL_Jone = ELw_Jone;
-  prdData.tW_Jone = EWw_Jone;
-  prdData.LW_Jone = EWw2_Jone;
+  prdData.tL_Jone = ELw_Jone; prdData.tL_cap = ELw_cap;
+  prdData.tW_Jone = EWw_Jone; prdData.tW_cap = EWw_cap;
+  prdData.LW_Jone = EWw2_Jone; prdData.LW_cap = EWw2_cap;
+  prdData.tL_skel = ELw_skel; prdData.LW_wild = EWw_wild; 
   prdData.tW_Wyne = EWw_Wyne;
   prdData.LW_Wyne = EWw2_Wyne;
-  prdData.tL1 = ELw_1;
   prdData.tL_Wyne = ELw_Wyne;
   prdData.tJO_e = EJT_Oe;
   prdData.LN = EN;
