@@ -1,3 +1,10 @@
+Updates 2024/07/04
+* Wyneken growth data from 2009, 2013, and 2014 added. Code is running, but f values for new data have not been adjusted yet.
+* 2009: Water tempterature 21-22C, ahi tuna instead of mahi mahi tuna
+* 2013: Water tempterature 20-24C, same as 2014 but infant formula is dairy-based
+* 2014: Water tempterature 20-23C, same as 2013 but infant formula is soy-based
+* Group plot added for all Jeanette's data (2009, 2013, 2014, 2020, 2021, 2022).
+
 Updates 2024/04/30
 * function for del_M implemented, but not sure how much it brings: the captive and wild data still have a problem with matching predicted growth in length and weight simultaneously
 * Wyneken data look OK -- if f reduced towards end of data, might be a nice fit; more data on different feeding levels might become available (change f later if this happens)
