@@ -4,6 +4,7 @@ Updates 2024/07/04
 * 2013: Water tempterature 20-24C, same as 2014 but infant formula is dairy-based
 * 2014: Water tempterature 20-23C, same as 2013 but infant formula is soy-based
 * Group plot added for all Jeanette's data (2009, 2013, 2014, 2020, 2021, 2022).
+* Something weird is going on with 2013 and 2014 weight.
 
 Updates 2024/04/30
 * function for del_M implemented, but not sure how much it brings: the captive and wild data still have a problem with matching predicted growth in length and weight simultaneously
