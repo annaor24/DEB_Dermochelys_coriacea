@@ -13,6 +13,10 @@ function [prdData, info] = predict_Dermochelys_coriacea(par, data, auxData)
   TC_pXm = tempcorr(temp.pXm, T_ref, T_A);
   TC_Jone = tempcorr(temp.tL_Jone, T_ref, T_A); % Jones experiments
   TC_Wyne = tempcorr(temp.tL_Wyne, T_ref, T_A); % Wyneken experiments
+  %%% NINA %%% 
+  TC_Wyne09 = tempcorr(temp.tL_Wyne09, T_ref, T_A); % Wyneken experiments 2009
+  TC_Wyne13 = tempcorr(temp.tL_Wyne13, T_ref, T_A); % Wyneken experiments 2013
+  TC_Wyne14 = tempcorr(temp.tL_Wyne14, T_ref, T_A); % Wyneken experiments 2014
   TC_tJOe = tempcorr(temp.tJO_e, T_ref, T_A);
   %TC_LN = tempcorr(temp.LN, T_ref, T_A);
   
@@ -125,7 +129,24 @@ L_d = Lw_del*del_Ma; % structural length when change in shape complete
   EWw_Wyne = EL_Wyne.^3 .* (1 + tvel(:,3) * ome);   % g, weight
   EWw2_Wyne = (LW_Wyne(:,1)*del_M).^3 .* (1 + tvel(:,3) * ome);   % g, weight for LW data; here all with baby shape
   %
-  
+  %%% NINA %%% 
+  tvel = get_tp(pars_tp, f_Wyne09, [], tL_Wyne09(:,1)*k_M*TC_Wyne09);
+  EL_Wyne09 = L_m * tvel(:,4);   % cm, structural length 
+  ELw_Wyne09 = EL_Wyne09/del_M; %cm , physical length
+  EWw_Wyne09 = EL_Wyne09.^3 .* (1 + tvel(:,3) * ome);   % g, weight
+  EWw2_Wyne09 = (LW_Wyne09(:,1)*del_M).^3 .* (1 + tvel(:,3) * ome);   % g, weight for LW data; here all with baby shape
+  %
+  tvel = get_tp(pars_tp, f_Wyne13, [], tL_Wyne13(:,1)*k_M*TC_Wyne13);
+  EL_Wyne13 = L_m * tvel(:,4);   % cm, structural length 
+  ELw_Wyne13 = EL_Wyne13/del_M; %cm , physical length
+  EWw_Wyne13 = EL_Wyne13.^3 .* (1 + tvel(:,3) * ome);   % g, weight
+  EWw2_Wyne13 = (LW_Wyne13(:,1)*del_M).^3 .* (1 + tvel(:,3) * ome);   % g, weight for LW data; here all with baby shape
+  %
+  tvel = get_tp(pars_tp, f_Wyne14, [], tL_Wyne14(:,1)*k_M*TC_Wyne13);
+  EL_Wyne14 = L_m * tvel(:,4);   % cm, structural length 
+  ELw_Wyne14 = EL_Wyne14/del_M; %cm , physical length
+  EWw_Wyne14 = EL_Wyne14.^3 .* (1 + tvel(:,3) * ome);   % g, weight
+  EWw2_Wyne14 = (LW_Wyne14(:,1)*del_M).^3 .* (1 + tvel(:,3) * ome);   % g, weight for LW data; here all with baby shape
   
   
   % time-weight, O2 consumption for embryo at f and T
@@ -160,9 +181,10 @@ L_d = Lw_del*del_Ma; % structural length when change in shape complete
   prdData.tW_Jone = EWw_Jone; prdData.tW_cap = EWw_cap;
   prdData.LW_Jone = EWw2_Jone; prdData.LW_cap = EWw2_cap;
   prdData.tL_skel = ELw_skel; prdData.LW_wild = EWw_wild; 
-  prdData.tW_Wyne = EWw_Wyne;
-  prdData.LW_Wyne = EWw2_Wyne;
-  prdData.tL_Wyne = ELw_Wyne;
+  %%% NINA %%% 
+  prdData.tW_Wyne = EWw_Wyne;  prdData.tW_Wyne09 = EWw_Wyne09; prdData.tW_Wyne13 = EWw_Wyne13; prdData.tW_Wyne14 = EWw_Wyne14; 
+  prdData.LW_Wyne = EWw2_Wyne; prdData.LW_Wyne09 = EWw2_Wyne09; prdData.LW_Wyne13 = EWw2_Wyne13; prdData.LW_Wyne14 = EWw2_Wyne14;
+  prdData.tL_Wyne = ELw_Wyne;  prdData.tL_Wyne09 = ELw_Wyne09; prdData.tL_Wyne13 = ELw_Wyne13; prdData.tL_Wyne14 = ELw_Wyne14;
   prdData.tJO_e = EJT_Oe;
   prdData.LN = EN;
 

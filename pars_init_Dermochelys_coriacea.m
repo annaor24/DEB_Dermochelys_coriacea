@@ -31,6 +31,10 @@ par.f = 1;            free.f     = 0;   units.f = '-';            label.f = 'sca
 par.f_Jone = 0.95152;  free.f_Jone = 1;   units.f_Jone = '-';       label.f_Jone = 'scaled functional response for Jones 2009 tL and tWw data'; 
 par.f_LN = 1.0309;    free.f_LN  = 1;   units.f_LN = '-';         label.f_LN = 'scaled functional response for LN data'; 
 par.f_Wyne = 0.71357;  free.f_Wyne = 1;   units.f_Wyne = '-';       label.f_Wyne = 'scaled functional response for Wyneken 2023 tL and tWw data'; 
+%%% NINA %%% 
+par.f_Wyne09 = 0.71357;  free.f_Wyne09 = 1;   units.f_Wyne09 = '-';       label.f_Wyne09 = 'scaled functional response for Wyneken 2009 tL and tWw data'; 
+par.f_Wyne13 = 0.71357;  free.f_Wyne13 = 1;   units.f_Wyne13 = '-';       label.f_Wyne13 = 'scaled functional response for Wyneken 2013 tL and tWw data'; 
+par.f_Wyne14 = 0.71357;  free.f_Wyne14 = 1;   units.f_Wyne14 = '-';       label.f_Wyne14 = 'scaled functional response for Wyneken 2013 tL and tWw data'; 
 par.f_tL1 = 1;        free.f_tL1 = 0;   units.f_tL1 = '-';        label.f_tL1 = 'scaled functional response for tL1 data'; 
 par.t_0 = 19.3614;    free.t_0   = 1;   units.t_0 = 'd';          label.t_0 = 'time at start development'; 
 
