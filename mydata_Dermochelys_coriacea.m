@@ -1318,13 +1318,13 @@ tLW_Wyn14 = [ ... (time since birth (d) SCL (cm) weight (g)
 144	9.96	171];
 data.tL_Wyne14 = tLW_Wyn14(:,1:2);
 units.tL_Wyne14   = {'d', 'cm'};  label.tL_Wyne14 = {'time since birth', 'straight carapace length'};  
-temp.tL_Wyne14    = C2K(24);  units.temp.tL_Wyne14 = 'K'; label.temp.tL2tL_Wyne14 = 'temperature';
+temp.tL_Wyne14    = C2K(21.5);  units.temp.tL_Wyne14 = 'K'; label.temp.tL2tL_Wyne14 = 'temperature';
 bibkey.tL_Wyne14 = 'Wyne2023';
 comment.tL_Wyne14 = 'captive animals fed Jeanette Wyeneken diet';
 %
 data.tW_Wyne14 = tLW_Wyn14(:,[1 3]); 
 units.tW_Wyne14   = {'d', 'g'};  label.tW_Wyne14 = {'time since birth', 'wet weight'};  
-temp.tW_Wyne14  = C2K(24);  units.temp.tW_Wyne14 = 'K'; label.temp.tW_Wyne14 = 'temperature';
+temp.tW_Wyne14  = C2K(21.5);  units.temp.tW_Wyne14 = 'K'; label.temp.tW_Wyne14 = 'temperature';
 bibkey.tW_Wyne14 = 'Wyne2023';
 
 data.LW_Wyne14 = tLW_Wyn14(:,[2 3]); 
