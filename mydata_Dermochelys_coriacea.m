@@ -1398,8 +1398,8 @@ metaData.grp.sets = {set1, set2, set3};
 metaData.grp.comment = {comment1, comment2, comment3};
 %%% NINA %%% 
 set4 = {'tL_Wyne','tL_Wyne09', 'tL_Wyne13', 'tL_Wyne14'}; comment4 = {'four diet data, Length, Wyneken 2023'};
-set5 = {'tW_Wyne','tW_Wyne09', 'tL_Wyne13', 'tL_Wyne14'}; comment5 = {'four diet data: Weight, Wyneken 2023'};
-set6 = {'LW_Wyne','LW_Wyne09', 'tL_Wyne13', 'tL_Wyne14'}; comment6 = {'four diet data: LW, Wyneken 2023'};
+set5 = {'tW_Wyne','tW_Wyne09', 'tW_Wyne13', 'tW_Wyne14'}; comment5 = {'four diet data: Weight, Wyneken 2023'};
+set6 = {'LW_Wyne','LW_Wyne09', 'LW_Wyne13', 'LW_Wyne14'}; comment6 = {'four diet data: LW, Wyneken 2023'};
 metaData.grp.sets = {set4, set5, set6};
 metaData.grp.comment = {comment4, comment5, comment6};
 
@@ -1574,3 +1574,4 @@ bibkey = 'Wyne2023'; type = 'misc'; bib = [ ...
 'year = {2023}'];
 metaData.biblist.(bibkey) = ['''@', type, '{', bibkey, ', ', bib, '}'';'];
 %
+
