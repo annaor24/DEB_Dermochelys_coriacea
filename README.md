@@ -1,10 +1,15 @@
+Updates 2024/07/29
+* Uploaded EVHR folder with simulations for a range of (constant) f and T 
+- TO DO: parameters need to be updated to load the leatherback parameters automatically
+- next steps: (1) plot the whole grid (for heat map); (2) take variable temp and food as inputs
+
 Updates 2024/07/04
 * Wyneken growth data from 2009, 2013, and 2014 added. Code is running, but f values for new data have not been adjusted yet.
 * 2009: Water tempterature 21-22C, ahi tuna instead of mahi mahi tuna
 * 2013: Water tempterature 20-24C, same as 2014 but infant formula is dairy-based
 * 2014: Water tempterature 20-23C, same as 2013 but infant formula is soy-based
 * Group plot added for all Jeanette's data (2009, 2013, 2014, 2020, 2021, 2022).
-* Something weird is going on with 2013 and 2014 weight.
+* Something weird is going on with 2013 and 2014 weight.  --> wrong data packing at plotting; fixed 2024/07/08
 
 Updates 2024/04/30
 * function for del_M implemented, but not sure how much it brings: the captive and wild data still have a problem with matching predicted growth in length and weight simultaneously
