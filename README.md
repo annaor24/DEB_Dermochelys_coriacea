@@ -1,3 +1,8 @@
+Updates 2024/09/10
+* Anna has uploaded EVHR subfolder with scripts changed for leatherback parameters
+* Plots technically generate, but erroneously with wrong or empty plots.
+* Next steps: talk through changes with Nina, identify the issues and finalise the leatherback parameters for the scripts.
+
 Updates 2024/07/29
 * Uploaded EVHR folder with simulations for a range of (constant) f and T 
 - TO DO: parameters need to be updated to load the leatherback parameters automatically
