@@ -513,7 +513,8 @@ D7 = ['mod_2: removed d_V = d_E = 0.22 as no reference was provided; re-estimate
     'including kappa closer to 0.8 instead of 0.2, and z>60 as this is the largest species '];
 D8 = ['mod_2: Added data on growth sourced from captive rearing, courtesy of J. Wyneken'];
 
-metaData.discussion = struct('D1',D1, 'D2',D2, 'D3',D3, 'D4',D4, 'D5',D5);
+metaData.discussion = struct('D1',D1, 'D2',D2, 'D3',D3, 'D4',D4, 'D5',D5, ...
+    'D6',D6, 'D7',D7, 'D8',D8);
 
 %% Facts
 F1 = ['all 7 species of sea turtles nest on beaches; '...

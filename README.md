@@ -1,3 +1,7 @@
+Updates 2024/09/26
+* Nina re-estimated all parameters to be closer to those of related species (comments marked as discussion points in the mydata file, marked with mod_2. Li, Lp updated with new refs (provided by Anna). The main difference to the previous pars set is f=0.9, and a higher kappa, which should hopefully enable meaningful food simulations.
+* EVHR_updated folder is in prep, so EVHR_forAnna will soon be obsolete
+
 Updates 2024/09/10
 * Anna has uploaded EVHR subfolder with scripts changed for leatherback parameters
 * Plots technically generate, but erroneously with wrong or empty plots.
