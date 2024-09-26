@@ -4,6 +4,19 @@ function [prdData, info] = predict_Dermochelys_coriacea(par, data, auxData)
   cPar = parscomp_st(par); vars_pull(par); 
   vars_pull(cPar);  vars_pull(data);  vars_pull(auxData);
 
+ 
+  filterChecks =  k * v_Hp >= f^3 || ...         % constraint required for reaching puberty with f
+                 ~reach_birth(g, k, v_Hb, f) ||... ;% constraint required for reaching birth with f
+              k * v_Hp >= f^3 || ...            % constraint required for reaching puberty with average f
+               ~reach_birth(g, k, v_Hb, f) ||... % constraint required for reaching birth with average f   
+         f_Jone > 1.5 || z <= 60 || v > 0.15 ; % filter for z value, to be larger than for other sea turtles
+
+  if filterChecks  
+    info = 0;
+    prdData = {};
+    return;
+  end  
+  
   % compute temperature correction factors
   TC_ab = tempcorr(temp.ab, T_ref, T_A);
   TC_ap = tempcorr(temp.ap, T_ref, T_A);
@@ -61,17 +74,17 @@ function [prdData, info] = predict_Dermochelys_coriacea(par, data, auxData)
   
   % feeding
   L = (350000/(1+f*ome))^(1/3); % cm, struc length
-  pT_Am = TC_pAm * p_Am * L^2/ 24/ 60/ 60/ 350 ; % W/kg, specific assimilation rate
+  pT_Am = TC_pAm * p_Am * L^2/ 24/ 60/ 60/ 350 ; % W/kg, max specific assimilation rate
   pT_Xm = TC_pXm * p_Am * L^2/ kap_X/ 24/ 60/ 60/ 350; % W/kg, intake rate 
 
-  % trying to make LN work
-  Lw_p = L_p/ del_Ma;            % cm, physical length at puberty at f
-  Lw_i = L_i/ del_Ma;            % cm, ultimate physical length at f
+%   % trying to make LN work
+%   Lw_p = L_p/ del_Ma;            % cm, physical length at puberty at f
+%   Lw_i = L_i/ del_Ma;            % cm, ultimate physical length at f
 
 
   % pack to output
   prdData.ab = aT_b;
-  prdData.ap = aT_p;
+  prdData.ap = aT_p/365; % in years
   prdData.am = aT_m;
   prdData.Lb = Lw_b;
   prdData.Lp = Lw_p;
@@ -103,14 +116,13 @@ L_d = Lw_del*del_Ma; % structural length when change in shape complete
   
   EWw2_Jone = (LW_Jone(:,1).* del_vec).^3 .* (1 + tvel(:,3) * ome);   % g, weight for LW data
   
-  tvel = get_tp(pars_tp, f_Jone, [], tL_cap(:,1)*k_M*TC_Jone);
+  tvel = get_tp(pars_tp, f_Jone2, [], tL_cap(:,1)*k_M*TC_Jone);
   EL_cap = L_m * tvel(:,4); L = EL_cap;  % cm, structural length 
   del_vec = ((L-L_b)*del_Ma + (L_d-L)*del_M) ./(L_d-L_b); % calculate weighted shape coeff
  del_vec(del_vec<del_Ma)=del_Ma;  % replace unrealistic values with adult shape coeff
+    ELw_cap = EL_cap./ del_vec; % cm, physical length
   
-  ELw_cap = EL_cap./ del_vec; % cm, physical length
-  
-   tvel = get_tp(pars_tp, f_Jone, [], tW_cap(:,1)*k_M*TC_Jone);
+   tvel = get_tp(pars_tp, f_Jone2, [], tW_cap(:,1)*k_M*TC_Jone);
   EL_cap = L_m * tvel(:,4); L = EL_cap;  % cm, structural length 
   del_vec = ((L-L_b)*del_Ma + (L_d-L)*del_M) ./(L_d-L_b); % calculate weighted shape coeff
  del_vec(del_vec<del_Ma)=del_Ma;  % replace unrealistic values with adult shape coeff
@@ -118,18 +130,20 @@ L_d = Lw_del*del_Ma; % structural length when change in shape complete
   EWw2_cap = (LW_cap(:,1).* del_vec).^3 .* (1 + tvel(:,3) * ome);   % g, weight for LW data
   %
    %adult skeletochronology data, fig 3.2 in Jone
-  tvel = get_tp(pars_tp, f_tL1, [], tL_skel(:,1)*k_M*TC_Jone);
-  ELw_skel = L_m * tvel(:,4)/ del_M;   % cm, length 
-     % wild LW data
-   EWw_wild = (LW_wild(:,1).* del_M).^3 .* (1 + f_tL1 * ome);   % g, weight for LW data, simple shape coeff used
-  %
+  tvel = get_tp(pars_tp, f, [], tL_skel(:,1)*k_M*TC_am); % using f of zero variate data!!
+  ELw_skel = L_m * tvel(:,4)/ del_Ma;   % cm, length , adults only
+ 
+  % wild LW data
+  small = LW_wild(LW_wild(:,1)<Lw_del,1); big = LW_wild(LW_wild(:,1)>= Lw_del,1);  % using f of zero variate data!!
+   EWw_wild = ([small.* del_M; big*del_Ma] ).^3 .* (1 + f * ome);   % g, weight for LW data, simple shape coeff used
+  
+   % Wyneken captive data
   tvel = get_tp(pars_tp, f_Wyne, [], tL_Wyne(:,1)*k_M*TC_Wyne);
   EL_Wyne = L_m * tvel(:,4);   % cm, structural length 
   ELw_Wyne = EL_Wyne/del_M; %cm , physical length
   EWw_Wyne = EL_Wyne.^3 .* (1 + tvel(:,3) * ome);   % g, weight
   EWw2_Wyne = (LW_Wyne(:,1)*del_M).^3 .* (1 + tvel(:,3) * ome);   % g, weight for LW data; here all with baby shape
   %
-  %%% NINA %%% 
   tvel = get_tp(pars_tp, f_Wyne09, [], tL_Wyne09(:,1)*k_M*TC_Wyne09);
   EL_Wyne09 = L_m * tvel(:,4);   % cm, structural length 
   ELw_Wyne09 = EL_Wyne09/del_M; %cm , physical length
@@ -142,7 +156,7 @@ L_d = Lw_del*del_Ma; % structural length when change in shape complete
   EWw_Wyne13 = EL_Wyne13.^3 .* (1 + tvel(:,3) * ome);   % g, weight
   EWw2_Wyne13 = (LW_Wyne13(:,1)*del_M).^3 .* (1 + tvel(:,3) * ome);   % g, weight for LW data; here all with baby shape
   %
-  tvel = get_tp(pars_tp, f_Wyne14, [], tL_Wyne14(:,1)*k_M*TC_Wyne13);
+  tvel = get_tp(pars_tp, f_Wyne14, [], tL_Wyne14(:,1)*k_M*TC_Wyne14);
   EL_Wyne14 = L_m * tvel(:,4);   % cm, structural length 
   ELw_Wyne14 = EL_Wyne14/del_M; %cm , physical length
   EWw_Wyne14 = EL_Wyne14.^3 .* (1 + tvel(:,3) * ome);   % g, weight
@@ -171,7 +185,7 @@ L_d = Lw_del*del_Ma; % structural length when change in shape complete
 
 
    % length - fecundity per nest; % Fecundity = [egg number]/# of nests = [kap_R * R_T /E0]/nest.LF
-    R =  reprod_rate(LN(:,1)*del_Ma, f_LN, pars_R);  % #/d, reproduction rate at T, 
+    R =  reprod_rate(LN(:,1)*del_Ma, f, pars_R);  % #/d, reproduction rate at T, using f of zero-variate data!!
     % do NOT correct for temp here, because temp correction in R and fecund cancel out
     %     N =length(data.LF);  
     EN = R * 365 ./ fecund.LN;  % #/ clutch

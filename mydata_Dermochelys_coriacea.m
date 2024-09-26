@@ -17,7 +17,7 @@ metaData.ecoCode.food    = {'biCij'};
 metaData.ecoCode.gender  = {'Dtmf'};
 metaData.ecoCode.reprod  = {'O'};
 
-metaData.T_typical  = C2K(26.4); % K, body temp --> THIS SEEMS WAY TOO HIGH, ESP. COMPARED TO TEMP.AM
+metaData.T_typical  = C2K(21.3); % K, body temp --> changed to T_am on 2024/09/20
 metaData.data_0     = {'ab'; 'tp'; 'am'; 'Lb'; 'Lp'; 'Li'; 'Ww0'; 'Wwb'; 'Wdb'; 'Wwi'; 'Ri'; 'pXi'; 'pAi'}; 
 metaData.data_1     = {'t-L_f'; 't-Ww'; 't-JOe'; 'LN'}; 
 
@@ -38,9 +38,9 @@ metaData.date_mod_2     = [2023 04 11];
 metaData.email_mod_2    = {'anna.ortega@research.uwa.edu.au'};            
 metaData.address_mod_2  = {'The University of Western Australia'};  
 
-metaData.curator     = {'Starrlight Augustine'};
-metaData.email_cur   = {'starrlight@akvaplan.niva.no'}; 
-metaData.date_acc    = [2023 06 13];
+metaData.curator     = {'Nina Marn'};
+metaData.email_cur   = {'nmarn@irb.hr'}; 
+metaData.date_acc    = [2024 09 13];
 
 
 %% set data
@@ -49,9 +49,10 @@ metaData.date_acc    = [2023 06 13];
 data.ab = 63; units.ab = 'd'; label.ab = 'age at birth'; bibkey.ab = {'ESA2020'};
   temp.ab = C2K(29.88); units.temp.ab = 'K'; label.temp.ab = 'temperature';
   comment.ab = 'Average incubation period is frmom 59-67 days; pivotal temperature is averaged at 29.88C.';
-data.ap = 19.25*365; units.ap = 'd'; label.ap = 'age at puberty'; bibkey.ap = {'ESA2020'};
+data.ap = 19.25; units.ap = 'yr'; label.ap = 'age at puberty'; bibkey.ap = {'ESA2020'};
   temp.ap = C2K(21.13); units.temp.ap = 'K'; label.temp.ap = 'temperature';
-  comment.ap = 'Mean maturation for NWA leatherbacks in 19.25 years, and mean water temp is averaged between high lat (15-17C) and low lat (25-27.5C) water temperature mean values.';
+  comment.ap = {'Mean maturation for NWA leatherbacks in 19.25 years, and mean water temp is averaged between high lat (15-17C) and low lat (25-27.5C) water temperature mean values.', 
+      'from growth models in Zug et al value is between 6.8 and 16.1 yrs'};
 data.am = (19.25+11)*365; units.am = 'd'; label.am = 'life span'; bibkey.am = {'ESA2020'};
   temp.am = C2K(21.13); units.temp.am = 'K'; label.temp.am = 'temperature';
   comment.am = 'Mean longevity aftern maturation is 11 years in the NW Atlantic, 19.25+11*365 for d';
@@ -59,12 +60,14 @@ data.am = (19.25+11)*365; units.am = 'd'; label.am = 'life span'; bibkey.am = {'
 data.Lb = 6.18; units.Lb = 'cm'; label.Lb = 'length at birth, SCL'; bibkey.Lb = {'Wyne2023'};
   comment.Lb = 'Previous data averaged with Wyneken 2023 day of hatching measurements.';
 data.Lp = 125.6; units.Lp = 'cm'; label.Lp = 'length at puberty, SCL'; bibkey.Lp = {'Aven2009'};
-  comment.Lp = 'Mean maturation CCL for NWA is 129.2 cm converted to SCL using Avens 2009 methods (better regression than Jones et al., 2011 when tested on nesting female data).';
-data.Li = 203; units.Li = 'cm'; label.Li = 'ultimate length, SCL'; bibkey.Li = {'Giro2021'};
-  comment.Li = 'Max SCL values for both sexes measured on the Atlantic French coast (n = 300) and males (n = 92)';
+  comment.Lp = {'Based on an Avens 2020 study about mean age at maturation (minimum is 109.56 cm SCL). They use ossicles to estimate age because, upon reaching puberty', 
+  'Mean maturation CCL for NWA is 129.2 cm converted to SCL = 125.6 using Avens 2009 methods (better regression than Jones et al., 2011 when tested on nesting female data).'};
+data.Li = 151.07; units.Li = 'cm'; label.Li = 'ultimate length, SCL'; bibkey.Li = {'Giro2021'};
+  comment.Li = 'averaged from 19 different studies measuring the size of nesting females. Giro2021: Max SCL values for both sexes measured on the Atlantic French coast (n = 300) and males (n = 92)';
 
 data.Ww0 = 81.66; units.Ww0 = 'g'; label.Ww0 = 'initial wet weight'; bibkey.Ww0 = {'Hsu2020'};
-  comment.Ww0 = 'Parismina, Costa Rica leatherback nesting data from 2018 (egg weight)';
+  comment.Ww0 = {'Parismina, Costa Rica leatherback nesting data from 2018 (egg weight)', ...
+      'mod_1: Ww0 was ignorned because it needs detailed modelling of the contribution of water to weight '};
 data.Wwb = 46.22; units.Wwb = 'g'; label.Wwb = 'wet weight at birth'; bibkey.Wwb = {'Hsu2020'};
   comment.Wwb = 'Average between 47.10 g (Hsu2020, n = 17) and 45.34 g (Wyne2023, n = 38)';
 data.Wdb = 9.776; units.Wdb = 'g'; label.Wdb = 'dry weight at birth'; bibkey.Wdb = {'Thom1993'};
@@ -80,7 +83,8 @@ data.pAm  = 0.41;    units.pAm  = 'W/kg'; label.pAm  = 'mass-specific metabolic 
   temp.pAm = C2K(20);  units.temp.pAm = 'K'; label.temp.pAm = 'temperature';
   comment.pAm = {'about 350 kg; assume that production is small (=no energy fixed in structure or gametes) and metab rate corresponds to assim rate. ', ... 
       'AO note: Average between trendline for mass-specific growth rate for 100, 200, 300, 400 kg individuals is .407,', ...
-      'but all data from Wall2008 averages to 0.95 for resting, active, laying, field, max, and calculated values'}; 
+      'but all data from Wall2008 averages to 0.95 for resting, active, laying, field, max, and calculated values', ...
+      'mod_1: pAm was ignorned because of inconsistency with other data and because allometric correction was applied for obtaining the specific rate '}; 
 
 data.pXm  = 0.81;    units.pXm  = 'W/kg'; label.pXm  = 'maximum intake of jellyfish of fully grown individual'; bibkey.pXm  = 'Jone2009';   
   temp.pXm = C2K(20);  units.temp.pXm = 'K'; label.temp.pXm = 'temperature';
@@ -269,20 +273,20 @@ tLW_cap(:,1) = 365 * tLW_cap(:,1); % convert yr to d
 tLW_cap(:,3) = 1e3 * tLW_cap(:,3); % convert kg to g
 
 data.tL_cap = tLW_cap(:,1:2); % age, length
-units.tL_cap   = {'d', 'cm'};  label.tL_cap = {'time since birth', 'straight carapace length, Jones captive'};  
+units.tL_cap   = {'d', 'cm'};  label.tL_cap = {'time since birth', 'straight carapace length, Jones captive mix'};  
 temp.tL_cap    = C2K(24);  units.temp.tL_cap = 'K'; label.temp.tL_cap = 'temperature';
 bibkey.tL_cap = 'Jone2009';
 comment.tL_cap = 'data from Table 3.2, captive animals. ''This study''from Jones 2009, other data from corresponding refs)';
 
 use = find(~isnan(tLW_cap(:,3)));
 data.tW_cap = tLW_cap(use,[1,3]); % age, wet weight
-units.tW_cap   = {'d', 'g'};  label.tW_cap = {'time since birth', 'wet weight, Jones captive'};  
+units.tW_cap   = {'d', 'g'};  label.tW_cap = {'time since birth', 'wet weight, Jones captive mix'};  
 temp.tW_cap    = C2K(24);  units.temp.tW_cap = 'K'; label.temp.tW_cap = 'temperature';
 bibkey.tW_cap = 'Jone2009';
 comment.tW_cap = 'data from Table 3.2, captive animals. ''This study''from Jones 2009, other data from corresponding refs)';
 
 data.LW_cap = tLW_cap(use,[2,3]); % SCL, wet weight
-units.LW_cap   = {'cm', 'g'};  label.LW_cap = {'straight carapace length', 'wet weight, Jones captive'};  
+units.LW_cap   = {'cm', 'g'};  label.LW_cap = {'straight carapace length', 'wet weight, Jones captive mix'};  
 bibkey.LW_cap = 'Jone2009';
 
 
@@ -299,7 +303,7 @@ LW_wild = [39.00	7	%MTN(1996)
 31.00	3.3	%MTN(2004)
 11.50	0.17	%M.Conti (pers.comm)
 ];
-
+LW_wild = sort(LW_wild); %sort by length
 data.LW_wild = [LW_wild(:,1), LW_wild(:,2)*1e3]; % SCL, wet weight
 units.LW_wild   = {'cm', 'g'};  label.LW_wild = {'straight carapace length', 'wet weight, Jones wild'};  
 bibkey.LW_wild = 'Jone2009';
@@ -325,8 +329,8 @@ data.tL_skel = [ ... % SCL (cm), time since birth (yr)
 22.582	139.585
 22.865	143.413];
 data.tL_skel(:,1) = 365 * data.tL_skel(:,1); % convert yr to d
-units.tL_skel   = {'d', 'cm'};  label.tL_skel = {'time since birth', 'straight carapace length'};  
-temp.tL_skel    = C2K(24);  units.temp.tL_skel = 'K'; label.temp.tL1 = 'temperature';
+units.tL_skel   = {'d', 'cm'};  label.tL_skel = {'time since birth', 'straight carapace length skel'};  
+temp.tL_skel    = temp.am ;  units.temp.tL_skel = 'K'; label.temp.tL1 = 'temperature';
 bibkey.tL_skel = 'Jone2009'; comment.tL_skel = 'triangles in Fig 3.2, probably wild, Zug and Parham 1996 cited in Jone2009';
 
 
@@ -1371,10 +1375,17 @@ bibkey.LN = {'Hirt1987', 'Fraz1991'};
 
 %% set weights for all real data
 weights = setweights(data, []);
-weights.pAm = 5 * weights.pAm;
-weights.Ww0 = 0 * weights.Ww0;
-weights.pAm = 0 * weights.pAm;
+% weights.pAm = 5 * weights.pAm;
+weights.Ww0 = 0 * weights.Ww0; %mod_1: Ww0 was ignorned because it needs detailed modelling of the contribution of water to weight 
+weights.pAm = 0 * weights.pAm; % mod_1: pAm was ignorned because of inconsistency with other data and because allometric correction was applied for obtaining the specific rate';
 weights.tJO_e = 5 * weights.tJO_e;
+weights.Li = 5 * weights.Li;
+weights.Wwi = 5* weights.Wwi;
+weights.Lp = 100* weights.Lp;
+weights.tL_skel = 10* weights.tL_skel;
+weights.LN = 10* weights.LN;
+weights.Ri = 10* weights.Ri;
+weights.ap = 0.5* weights.ap; % models point to a lower value, so reduce weight of this data point
 
 %% set pseudodata and respective weights
 [data, units, label, weights] = addpseudodata(data, units, label, weights);
@@ -1409,8 +1420,13 @@ D1 = 'Jone2009: 1.3e11 g jellyfish converts to 2.6e13 J, so jellyfish have 200 J
 D2 = 'mod_1: data on ingestion/metam revised, tJO_e, Ww0, Wdb data added';
 D3 = 'mod_1: pAm was ignorned because of inconsistency with other data and because allometric correction was applied for obtaining the specific rate';
 D4 = 'mod_1: Ww0 was ignorned because it needs detailed modelling of the contribution of water to weight';
-D5 = ['mod_1: We use data from Jones 2009 (Tables 3.1, 3.2 and 3.3, combined with data from Zug et al  (1986) presented in figure 3.2) for parameter estimation.', ...
+D5 = ['mod_2: We use data from Jones 2009 (Tables 3.1, 3.2 and 3.3, combined with data from Zug et al  (1986) presented in figure 3.2) for parameter estimation.', ...
     'Data from Table 3.1 used partially (where N>3), and tL1 data in the original entry had mixed captive and wild turtles- now revised'];
+D6 = ['mod_2: f for the wild assumed less than maximum (f=0.9) and applied for all calculations pertaining to wild turtles'];
+D7 = ['mod_2: removed d_V = d_E = 0.22 as no reference was provided; re-estimated all parameters to be more in line with other sea turtle parameters,'...
+    'including kappa closer to 0.8 instead of 0.2, and z>60 as this is the largest species '];
+D8 = ['mod_2: Added data on growth sourced from captive rearing, courtesy of J. Wyneken'];
+
 metaData.discussion = struct('D1',D1, 'D2',D2, 'D3',D3, 'D4',D4, 'D5',D5);
 
 %% Facts
