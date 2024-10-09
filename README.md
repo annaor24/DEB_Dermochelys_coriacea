@@ -1,3 +1,7 @@
+Updates 2024/10/09
+* EVHR_updated is uploaded , food and temp simulations work
+* Next steps: check heatmap generation; check non-constant input to EVHR_fT
+
 Updates 2024/09/26
 * Nina re-estimated all parameters to be closer to those of related species (comments marked as discussion points in the mydata file, marked with mod_2. Li, Lp updated with new refs (provided by Anna). The main difference to the previous pars set is f=0.9, and a higher kappa, which should hopefully enable meaningful food simulations.
 * EVHR_updated folder is in prep, so EVHR_forAnna will soon be obsolete
