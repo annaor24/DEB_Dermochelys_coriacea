@@ -21,13 +21,14 @@ colors = [red; orange; yello; green; blue; dblue; purple; black; red; orange; ye
 
  %% 1 - initialize time, parameters, etc
   simu = init ;
-     K1 = simu.cPar.K; T_env = simu.Tinit;
-     Xinit = simu.Xinit;  % f = x/ (1+x) = X/K / (1 + X/K)
-
+     K1 = simu.cPar.K; T_env = simu.Tinit;    Xinit = simu.finit .* simu.cPar.K ./ (1-simu.finit);  % f = x/ (1+x) = X/K / (1 + X/K)
+% check values -- {p_Am} = 2.7e+03 J/cm2.d; z = 60; K: 0.0031 c-mol X/l, half-saturation coefficient
+% Xinit = 0.0280 (mdfyX = 1)
+     
 %% simulate conditions
 
 limit = 4; % this will simulate current conditions +7points lower and 7points higher than current
-scenario = 'Temp'; % options: Food, Temp
+scenario = 'Food'; % options: Food, Temp
 
 switch scenario
     case 'Food'                        
@@ -202,7 +203,7 @@ switch scenario
          t_T= 0; Lw_T= 0; Ww_T =0; R_T = 0;  LR_T=0;  tR_T = 0; % initialize (delete later this entry)
                 
         for ii = 1: length(Ts)
-            simu.Tinit = Ts(ii); %  + 273;
+            simu.Tinit = Ts(ii); 
             fprintf('Current temperature is %2.2f C\n', Ts(ii)-273.15)
             %% 2 - calculate state variables
             simu.tEVHR = indiv(simu);
@@ -345,5 +346,5 @@ end
 % x_L_W = [Lw_f; Lw_T]; y_L_W = [Ww_f; Ww_T];
 % x_L_R = [LR_f; LR_T]; y_L_R = [R_f; R_T];
 % 
-% save ('results_fT.mat', 'x*', 'y*', '-append')
+%  save ('results_fT.mat', 'x*', 'y*', '-append')
 

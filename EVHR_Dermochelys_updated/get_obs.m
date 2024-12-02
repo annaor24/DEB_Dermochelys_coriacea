@@ -47,7 +47,7 @@ W_R= w_E / mu_E * (E_R);
 percentW_R= W_R./W;
 index= find(percentW_R>0);
 newPercentW_R = percentW_R(index);
-fprintf('Maximum percentage of repro buffer contribution is %2.4f \n', max(newPercentW_R))
+% fprintf('Maximum percentage of repro buffer contribution is %2.4f \n', max(newPercentW_R))
 
 
 
