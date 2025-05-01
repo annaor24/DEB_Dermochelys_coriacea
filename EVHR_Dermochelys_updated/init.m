@@ -22,7 +22,7 @@ function simu = init(simu)
  % choose if environment constant or variable
  env = 1; % 1 = constant, 2 = variable
   % initial forcing variable <--environment
- T_env = C2K(21.8); 
+ T_env = C2K(21.13); 
  f_env = 0.9 ; 
  temp_crit = 0; % if working with critical high and low temp
  
@@ -43,7 +43,8 @@ style2 = '--';
 %% % setup turtle parameters
 load results_Dermochelys_coriacea % <--- has all primary parameters obtained by AmP routines
 par.f_AmP = par.f; % AmP has an f for zero variate data!
-cPar = parscomp_st(par);  % <--- creates compound parameters, like p_Am, K_X, scaled parameters
+% par.F_m = par.F_m /2;
+cPar = parscomp_st(par); cPar.K  % <--- creates compound parameters, like p_Am, K_X, scaled parameters
 % vars_pull(cPar); vars_pull(par) % DEBtool scripts to unpack matlab structures
 
  

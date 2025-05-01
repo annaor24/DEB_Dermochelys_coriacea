@@ -1,5 +1,5 @@
 Simulations for D.coriacea
-code by Nina Marn, work by Anna Ortega
+code and work by Nina Marn, work by Anna Ortega
 
 Two type of simulations
 -------Type 1-----

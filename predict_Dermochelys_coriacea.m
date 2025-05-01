@@ -42,26 +42,26 @@ function [prdData, info] = predict_Dermochelys_coriacea(par, data, auxData)
   % initial
   pars_UE0 = [V_Hb; g; k_J; k_M; v]; % compose parameter vector
   E_0 = p_Am * initial_scaled_reserve(f, pars_UE0); % J, initial reserve
-  Ww_0 = E_0 * w_E/ mu_E/ d_V;       % g, initial wet weight
+  Ww_0 = E_0 * w_E/ mu_E/ d_V;       % g, initial wet weight--> d_V for egg might be different, plus shell!!
 
   % birth
   L_b = L_m * l_b;                  % cm, structural length at birth at f
   Lw_b = L_b/ del_M;                % cm, physical length at birth at f
-  Ww_b = L_b^3 * (1 + f * w);       % g, wet weight at birth at f 
+  Ww_b = L_b^3 * (1 + f * ome);       % g, wet weight at birth at f 
   Wd_b = Ww_b * d_V;                % g, dry weight at birth at f 
   aT_b = t_0 + t_b/ k_M/ TC_ab;     % d, age at birth at f and T
 
   % puberty 
   L_p = L_m * l_p;                  % cm, structural length at puberty at f
   Lw_p = L_p/ del_Ma;                % cm, physical length at puberty at f
-  Ww_p = L_p^3 *(1 + f * w);        % g, wet weight at puberty 
+  Ww_p = L_p^3 *(1 + f * ome);        % g, wet weight at puberty 
   aT_p = t_p/ k_M/ TC_ap;           % d, age at puberty at f and T
 
   % ultimate
   l_i = f - l_T;                    % -, scaled ultimate length
   L_i = L_m * l_i;                  % cm, ultimate structural length at f
   Lw_i = L_i/ del_Ma;                % cm, ultimate physical length at f
-  Ww_i = L_i^3 * (1 + f * w);       % g, ultimate wet weight 
+  Ww_i = L_i^3 * (1 + f * ome);       % g, ultimate wet weight 
  
   % reproduction
   pars_R = [kap; kap_R; g; k_J; k_M; L_T; v; U_Hb; U_Hp]; % compose parameter vector at T
@@ -74,7 +74,7 @@ function [prdData, info] = predict_Dermochelys_coriacea(par, data, auxData)
   
   % feeding
   L = (350000/(1+f*ome))^(1/3); % cm, struc length
-  pT_Am = TC_pAm * p_Am * L^2/ 24/ 60/ 60/ 350 ; % W/kg, max specific assimilation rate
+  pT_Am = TC_pAm * p_Am * L^2/ 24/ 60/ 60/ 350 ; % W/kg, max specific assimilation rate (W = J/s)
   pT_Xm = TC_pXm * p_Am * L^2/ kap_X/ 24/ 60/ 60/ 350; % W/kg, intake rate 
 
 %   % trying to make LN work
@@ -164,7 +164,7 @@ L_d = Lw_del*del_Ma; % structural length when change in shape complete
   
   
   % time-weight, O2 consumption for embryo at f and T
-  vT = v * TC_tJOe; pT_M = p_M * TC_tJOe; 
+  vT = v * TC_tJOe; pT_M = p_M * TC_tJOe; % use embryo v_e!!
   LE_0 = [1e-6; E_0];    % cm, J, initial conditions
   t = max(0,tJO_e(:,1)-t_0); n=length(t);for i=2:n; if t(i)<=t(i-1); t(i)= t(i-1)+1e-3;end; end
   [t, LE] = ode45(@get_LE, t, LE_0, [], L_b, TC_tJOe* p_Am, kap, TC_tJOe* p_M, TC_tJOe* v, E_G);

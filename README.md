@@ -1,3 +1,11 @@
+Updates 2025/04/28
+* new parameter set in folder new_AmP_fits
+* fixed current temperature in EVHR_Dermochelys updated
+
+Updates 2025/03/25
+* heatmap as used in the loggerhead paper (function 'imagesc') _has reporting issues_, because it reports the results slightly skewed. As a result of that, it would appear from the plots that the turtles reproduce at lower food levels than simulations show. Not sure why this works in such a way, but safer to use a different function for plotting: 'surf' instead of 'imagesc'.
+* Nina had discussions with Mike in Feb, and neither of us like v having such a high value (0.15), so Anna and Nina decided to go ahead with the writing etc, but try to get a lower value of v (i.e., a different parameter set) at one point
+
 Updates 2024/10/09
 * EVHR_updated is uploaded , food and temp simulations work
 * Next steps: check heatmap generation; check non-constant input to EVHR_fT

@@ -1,5 +1,5 @@
 % modeling food or temp, script by Nina Marn
-% last modified: 2024-Sep-19
+% last modified: 2025-Apr-28
 
 clear all 
 save results_fT.mat
