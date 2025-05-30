@@ -1,3 +1,6 @@
+Updates 2025/05/30
+* cleanup of old AmP files (files which were outside of folders have been removed)
+
 Updates 2025/04/28
 * new parameter set in folder new_AmP_fits
 * fixed current temperature in EVHR_Dermochelys updated
