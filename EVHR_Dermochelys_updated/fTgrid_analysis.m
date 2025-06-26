@@ -19,28 +19,28 @@ load results_fTgrid2.mat
   %% print to screen tables with data
   % ========================================================
       fprintf (' **** DIFFERENT FOOD LEVELS ***** \n')      
-      i_temp = limit; temp=Ts(i_temp) % which row to print for temp
+      i_temp = limit; temp=Ts(i_temp)-273.15 % which row to print for temp
    fprintf (' mdfy,   f,     ap,    Lp,     Li,     Wi,      Ri  ,    cumF \n')     
    fprintf ('======================================================= \n')
         for ff = 1:length(mdfyX)
             mdfy = mdfyX(ff);
             if mdfy <= 1
-                fprintf('%2.0f & %1.3f & %3.2f & %3.2f & %3.2f & %3.2f & %i & %i \\\\ \n',...
-                    (mdfy-1)*100, f2(ff) , ap(i_temp,ff), Lp(i_temp,ff), Li(i_temp,ff),  Wi(i_temp,ff)/1000, round(Ri(i_temp,ff)), round(cumF(i_temp,ff)))               
+                fprintf('%2.0f & %1.3f & %3.2f & %3.2f & %3.2f & %3.1f & %i & %i \\\\ \n',...
+                    (mdfy-1)*100, f2(ff) , ap(i_temp,ff), Lp(i_temp,ff), Li(i_temp,ff),  Wi(i_temp,ff), round(Ri(i_temp,ff)), round(cumF(i_temp,ff)))               
              else
-             fprintf('+%2.0f & %1.3f & %3.2f & %3.2f & %3.2f & %3.2f & %i & %i  \\\\ \n',...
-                    (mdfy-1)*100, f2(ff) , ap(i_temp,ff), Lp(i_temp,ff), Li(i_temp,ff),  Wi(i_temp,ff)/1000, round(Ri(i_temp,ff)), round(cumF(i_temp,ff)))
+             fprintf('+%2.0f & %1.3f & %3.2f & %3.2f & %3.2f & %3.1f & %i & %i  \\\\ \n',...
+                    (mdfy-1)*100, f2(ff) , ap(i_temp,ff), Lp(i_temp,ff), Li(i_temp,ff),  Wi(i_temp,ff), round(Ri(i_temp,ff)), round(cumF(i_temp,ff)))
              end
         end
         fprintf ('======================================================= \n')
             fprintf (' **** DIFFERENT TEMPERATURES ***** \n')      
-            i_food = limit; food = f2(i_food)
+            i_food = limit-1; food = f2(i_food)
         fprintf (' T,     ap,    Lp,     Li,     Wi,      Ri ,  cumF \n')     
        fprintf ('======================================================= \n')
        
         for tt = 1: length(Ts)            
-                fprintf('%2.2f & %2.2f & %4.1f & %1.3f & %3.3f & %3.2f & %i \\\\ \n',...
-                   Ts(tt)-273.15, ap(tt,i_food), Lp(tt,i_food), Li(tt,i_food), Wi(tt,i_food)/1000, round(Ri(tt,i_food)), round(cumF(tt,i_food)))
+                fprintf('%2.2f & %2.2f & %4.2f & %1.2f & %3.1f & %i & %i \\\\ \n',...
+                   Ts(tt)-273.15, ap(tt,i_food), Lp(tt,i_food), Li(tt,i_food), Wi(tt,i_food), round(Ri(tt,i_food)), round(cumF(tt,i_food)))
         end
         fprintf ('======================================================= \n')
        

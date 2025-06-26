@@ -18,10 +18,10 @@ metaData.ecoCode.gender  = {'Dtmf'};
 metaData.ecoCode.reprod  = {'O'};
 
 metaData.T_typical  = C2K(21.13); % K, body temp --> changed to T_am on 2024/09/20
-metaData.data_0     = {'ab'; 'tp'; 'am'; 'Lb'; 'Lp'; 'Li'; 'Ww0'; 'Wwb'; 'Wdb'; 'Wwi'; 'Ri'; 'pXi'; 'pAi'}; 
-metaData.data_1     = {'t-L_f'; 't-Ww'; 't-JOe'; 'LN'}; 
+metaData.data_0     = {'ab'; 'ap'; 'am'; 'Lb'; 'Lp'; 'Li'; 'Ww0'; 'Wwb'; 'Wdb'; 'Wwi'; 'Ri'; 'pXi'; 'pAi'}; 
+metaData.data_1     = {'t-L_f'; 't-Ww_f'; 't-JOe'; 'LN'; 'L-Ww'}; 
 
-metaData.COMPLETE = 2.8; % using criteria of LikaKear2011
+metaData.COMPLETE = 3; % using criteria of LikaKear2011
 
 metaData.author   = {'Bas Kooijman'};    
 metaData.date_subm = [2012 11 07];              
@@ -489,20 +489,15 @@ txtData.bibkey = bibkey;
 txtData.comment = comment;
 
 %% Group plots
-set1 = {'tL_Jone','tL_cap', 'tL_skel'}; comment1 = {'Captive data + skeletochron data, Length, Jones 2009'};
+set1 = {'tL_Jone','tL_cap'}; comment1 = {'Captive data, Length, Jones 2009'}; % 'tL_skel' excluded
 set2 = {'tW_Jone','tW_cap'}; comment2 = {'Captive data: Weight, Jones 2009'};
 set3 = {'LW_Jone','LW_cap', 'LW_wild'}; comment3 = {'Captive + wild data LW, Jones 2009'};
-%set7 = {'LW_0188f', 'LW_1883f', 'LW_0644f', 'LW_0882f', 'LW_1633f'};  comment6 = {'Length-Wet mass for 5 females (RIT Prince)'};
-%set8 = {'LW_1307m', 'LW_1097m', 'LW_0005m', 'LW_0097m', 'LW_0697m'}; comment7 = {'Length-Wet mass for 5 males (RIT Prince)'};
-%set9 = {'LW_UWW891', 'LW_UWW892'}; comment8 = {'Length-Wet mass for 2 individuals (RIT Prince)'};
-metaData.grp.sets = {set1, set2, set3};
-metaData.grp.comment = {comment1, comment2, comment3};
-%%% NINA %%% 
 set4 = {'tL_Wyne','tL_Wyne09', 'tL_Wyne13', 'tL_Wyne14'}; comment4 = {'four diet data, Length, Wyneken 2023'};
 set5 = {'tW_Wyne','tW_Wyne09', 'tW_Wyne13', 'tW_Wyne14'}; comment5 = {'four diet data: Weight, Wyneken 2023'};
 set6 = {'LW_Wyne','LW_Wyne09', 'LW_Wyne13', 'LW_Wyne14'}; comment6 = {'four diet data: LW, Wyneken 2023'};
-metaData.grp.sets = {set4, set5, set6};
-metaData.grp.comment = {comment4, comment5, comment6};
+metaData.grp.sets = {set1, set2, set3, set4, set5, set6};
+metaData.grp.comment = {comment1, comment2, comment3, comment4, comment5, comment6};
+
 
 
 %% Discussion points

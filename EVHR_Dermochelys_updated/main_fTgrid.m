@@ -23,7 +23,7 @@ limit = 11; % this will simulate current conditions +15points lower and 15points
     mdfyX(limit) = [] ;% food(ff) with the double entry removed
 
   % Ts= [14 16 18 20 22 24 26 28 30];  % different temperature (tt)
- Ts = [linspace(C2K(14),T_env,limit) linspace(T_env,C2K(30),limit)] ; % to ensure T is simulated
+ Ts = [linspace(C2K(14),T_env,limit) linspace(T_env,C2K(28),limit)] ; % to ensure T is simulated
     Ts(limit) = [] ; % temp(tt) with the double entry removed
 
     % initialize outputs                            

@@ -28,10 +28,10 @@ colors = [red; orange; yello; green; blue; dblue; purple; black; red; orange; ye
 %% simulate conditions
 
 limit = 4; % this will simulate current conditions +7points lower and 7points higher than current
-scenario = 'Food'; % options: Food, Temp
+scenario = 'Temp'; % options: Food, Temp
 
-switch scenario
-    case 'Food'                        
+% switch scenario
+%     case 'Food'                        
 %         markers = ['o', '.', 'x','.', 's','*']; 
    mdfyX = [linspace(0.5,1,limit), linspace(1,2,limit)] ; % to ensure f is simulated
      mdfyX(limit) = [] ;% food(ff) with the double entry removed
@@ -104,7 +104,7 @@ switch scenario
             
             %% 4 - make plots
             simu.col = colors(ii, :);
-             simu.mark = '.';
+             simu.mark = '.'; simu.fig = 1;
              get_plots(simu)
 %                            
         end 
@@ -192,10 +192,10 @@ switch scenario
 %      ylabel('eggs per clutch (#)')
         
         
-    case 'Temp'
+%     case 'Temp'
         
         % different temperature
-         Ts = [linspace(C2K(14),T_env,limit) linspace(T_env,C2K(30),limit)] ; % to ensure T is simulated
+         Ts = [linspace(C2K(14),T_env,limit) linspace(T_env,C2K(27),limit)] ; % to ensure T is simulated
     Ts(limit) = [] ; % temp(tt) with the double entry removed
       Ts = fliplr(Ts); % better for plotting
         simu.Xinit = Xinit;
@@ -261,7 +261,7 @@ switch scenario
             end
             
             %% 4 - make plots
-             simu.col = colors(ii, :);
+             simu.col = colors(ii, :);simu.fig = 2;
                  get_plots(simu)
                         
         end 
@@ -340,7 +340,7 @@ switch scenario
 %      xlabel('length, SCL (cm)')
 %      ylabel('eggs per clutch (#)')
          
-end
+% end
 
 %% for curve fitting
 % x_L_W = [Lw_f; Lw_T]; y_L_W = [Ww_f; Ww_T];

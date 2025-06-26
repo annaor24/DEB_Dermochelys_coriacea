@@ -43,7 +43,7 @@ simu.style=style1;
   F  = simu.obs(:,5); % fecundity = reproduction in other script
     
   % graph
-  figure(1)
+  figure(simu.fig)
   set(gcf,'PaperPositionMode','manual');
   set(gcf,'PaperUnits','in');
   %left bottom width height
@@ -56,14 +56,15 @@ simu.style=style1;
   title('Temperature')
   xlabel('Time (yr)')
   ylabel('T (degC)')
-  axis([0 t(end) 0 25])
+  axis([0 40 10 30])
 
   subplot(3,4, 2)
   hold on
-  plot( t, X , 'Color',  simu.col, 'Linewidth',1.5)
+  plot( t, f , 'Color',  simu.col, 'Linewidth',1.5)
   title('Food')
   xlabel('Time (yr)')	
-  ylabel( 'Food density')
+  ylabel( 'Scaled food availability')
+  axis([0 40 0.75 1])
   
   
   subplot(3,4,4)
@@ -96,7 +97,7 @@ simu.style=style1;
   subplot(3, 4, 7)
   hold on
   plot(t, E_H,'Color', simu.col, 'Linewidth',1.5)
-  title('Cumulated energy invested into maturation')
+  title(['Cumulated energy ', 'invested into maturation'])
   xlabel('Time (yr)')
   ylabel('E_H (J)')
   
@@ -104,7 +105,7 @@ simu.style=style1;
   subplot(3, 4, 8)
   hold on
   plot(t, E_R,'Color', simu.col , 'Linewidth',1.5)
-  title('Reproduction buffer (J)')
+  title('Reproduction buffer')
   xlabel('Time (yr)')
   ylabel('E_R (J)')
   
@@ -112,7 +113,7 @@ simu.style=style1;
   subplot(3, 4, 9)
   hold on
   plot(t, Lw,'Color', simu.col , 'Linewidth',1.5)
-  title('Physical length (cm)')
+  title('Physical length ')
   xlabel('Time (yr)')
   ylabel(' Lw (cm)')
   
@@ -129,7 +130,7 @@ simu.style=style1;
   subplot(3, 4, 11)
   hold on
   plot(t, Ew,'Color', simu.col , 'Linewidth',1.5)
-  title('Weight-specific energy content (J/g)')
+  title('Weight-specific energy content')
   xlabel('Time (yr)')
   ylabel('<Ew> (J.g^{-1})')
 

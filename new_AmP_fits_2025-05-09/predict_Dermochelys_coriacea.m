@@ -37,7 +37,7 @@ function [prdData, info] = predict_Dermochelys_coriacea(par, data, auxData)
 
   % life cycle
   pars_tp = [g k l_T v_Hb v_Hp];
-  [t_p, t_b, l_p, l_b, info] = get_tp(pars_tp, f);
+  [tau_p, tau_b, l_p, l_b, info] = get_tp(pars_tp, f);
   
   % initial
   pars_UE0 = [V_Hb; g; k_J; k_M; v]; % compose parameter vector
@@ -49,13 +49,13 @@ function [prdData, info] = predict_Dermochelys_coriacea(par, data, auxData)
   Lw_b = L_b/ del_M;                % cm, physical length at birth at f
   Ww_b = L_b^3 * (1 + f * ome);       % g, wet weight at birth at f 
   Wd_b = Ww_b * d_V;                % g, dry weight at birth at f 
-  aT_b = (t_0 + t_b/ k_M)/ TC_ab;     % d, age at birth at f and T
+  aT_b = (t_0 + tau_b/ k_M)/ TC_ab;     % d, age at birth at f and T
 
   % puberty 
   L_p = L_m * l_p;                  % cm, structural length at puberty at f
   Lw_p = L_p/ del_Ma;                % cm, physical length at puberty at f
   Ww_p = L_p^3 *(1 + f * ome);        % g, wet weight at puberty 
-  aT_p = t_p/ k_M/ TC_ap;           % d, age at puberty at f and T
+  aT_p = tau_p/ k_M/ TC_ap;           % d, age at puberty at f and T
 
   % ultimate
   l_i = f - l_T;                    % -, scaled ultimate length
@@ -181,7 +181,7 @@ L_d = Lw_del*del_Ma; % structural length when change in shape complete
   J_M = (- n_M\n_O * J_O)';      % mol/d, mineral fluxes
   % molar volume of gas at 1 bar and 20 C is 24.4 L/mol
   X_gas = 1/ 24.4; % M, mol of gas per litre at 20 C and 1 bar 
-  EJT_Oe = - J_M(:,3)/ X_gas / 24e-3; % mL/ h  
+  EJT_Oe = - J_M(:,3)/ X_gas/ 24e-3; % mL/ h  
 
 
    % length - fecundity per nest; % Fecundity = [egg number]/# of nests = [kap_R * R_T /E0]/nest.LF
