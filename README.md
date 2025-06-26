@@ -1,3 +1,7 @@
+Updates 2025/06/26
+* new parameters consolidated, EVHR scripts checked for consistency with AmP scripts (food and temp to provide same/similar predictions for life history traits in both sets of routines)
+* these parameters and results are now in the manuscript - tables and figures. MDS plots are done but folder not in github.
+
 Updates 2025/05/30
 * cleanup of old AmP files (files which were outside of folders have been removed)
 
