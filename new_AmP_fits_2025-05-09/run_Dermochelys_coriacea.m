@@ -14,13 +14,4 @@ estim_options('method', 'no');
 
 estim_pars; 
 
-close(14:16)
-
-  return
-   estim_options('pars_init_method', 1); 
-   estim_pars; 
-  estim_pars;
-  estim_options('max_step_number', 5e3); 
-  estim_pars;
-
- close(14:16) 
+%close(10:13)

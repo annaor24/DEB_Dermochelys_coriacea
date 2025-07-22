@@ -1,3 +1,6 @@
+Updates 2025/07/22
+* New value for ultimate weight, value for pAm updated
+
 Updates 2025/06/26
 * new parameters consolidated, EVHR scripts checked for consistency with AmP scripts (food and temp to provide same/similar predictions for life history traits in both sets of routines)
 * these parameters and results are now in the manuscript - tables and figures. MDS plots are done but folder not in github.

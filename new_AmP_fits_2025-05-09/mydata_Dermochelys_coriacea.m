@@ -76,8 +76,13 @@ data.Wwb = 46.03; units.Wwb = 'g'; label.Wwb = 'wet weight at birth'; bibkey.Wwb
   comment.Wwb = 'Average between 47.10 g (Hsu2020, n = 17) and 45.34 g (Wyne2023, n = 38), and 45.69 (Thom1993, n=6)';
 data.Wdb = 9.776; units.Wdb = 'g'; label.Wdb = 'dry weight at birth'; bibkey.Wdb = {'Thom1993'};
   %comment.Wdb = 'No new NWA data (there is EP data but not relevant to this task)';
-data.Wwi = 683.33*1e3; units.Wwi = 'g'; label.Wwi = 'ultimate wet weight'; bibkey.Wwi = {'Wood1982'};
-  comment.Wwi = 'Guiness book of animal facts and feats - Gerald L Wood, 1982 cites Duron 1978 for a record of a capture male in a fishing ent at Longeville, Vendee Dept, W France that was 800 kg, with two other records off of West France at 650 and 600 kg. All averaged for this value.';
+data.Wwi = 370*1e3; units.Wwi = 'g'; label.Wwi = 'ultimate wet weight'; bibkey.Wwi = {'Wood1982', 'Pala1996', 'Lutc1992'};
+  comment.Wwi ={ 'Set to 370 kg based on more recent references suggesting 360kg and historic records of big turtles having values of 600+kg', ...
+      'Paladino: 13 adult female leatherback turtles (D.coriacea) near Tortuguero (Limon Province, Costa Rica -- NWA)',...
+      'and Playa Langosta (Guanacaste Province, Costa Rica -- EP) in Table 1 reports three means, biggest mean 366 kg (N=10);',...
+      'Lutcavage: 5 adult females on Tortuguero beach, Costa Rica: 320kg, 315kg, 370kg, 355 kg, 350kg (mean 342 +/-23kg)',...
+      ' Wood: Guiness book of animal facts and feats - Gerald L Wood, 1982 cites Duron 1978 for a record of a captured male ',...
+      'in a fishing net at Longeville, Vendee Dept, W France that was 800 kg, with two other records off of West France at 650 and 600 kg.'};
 
 data.Ri = 0.4147; units.Ri = '#/d'; label.Ri = 'ultimate reproduction rate'; bibkey.Ri = {'ESA2020'};
   temp.Ri = C2K(21.13); units.temp.Ri = 'K'; label.temp.Ri = 'temperature';
@@ -90,12 +95,12 @@ data.pAm  = 0.41;    units.pAm  = 'W/kg'; label.pAm  = 'mass-specific metabolic 
       'but all data from Wall2008 averages to 0.95 for resting, active, laying, field, max, and calculated values', ...
       'mod_1: pAm was ignorned because of inconsistency with other data and because allometric correction was applied for obtaining the specific rate '}; 
 
-data.pXm  = 0.81;    units.pXm  = 'W/kg'; label.pXm  = 'maximum intake of jellyfish of fully grown individual'; bibkey.pXm  = 'Jone2009';   
+data.pXm  = 1.13;    units.pXm  = 'W/kg'; label.pXm  = 'maximum intake of jellyfish of fully grown individual'; bibkey.pXm  = 'Jone2009';   
   temp.pXm = C2K(20);  units.temp.pXm = 'K'; label.temp.pXm = 'temperature';
-  comment.pXm = {'about 350 kg, 82 kg jelly fish/d for 250-450 kg turtle wit 200 J/g  = 82/350*200000/24/60/60 W/kg. ', ...
-      'AO note: Energy budget calculations between EP and NWA, but suggests that average required feeding rate for ', ...
-      'St. Croix (NWA) leatherbacks for a 2.85 remigration interval is 127 kg/d. Leatherback prey energy content is ', ... 
-      '310 kJ/kg wet mass from Davenport & Balazs 1991).'};
+  comment.pXm = {'NWA leatherbacks: Energy budget calculations between EP and NWA, but suggests that average required feeding rate for ', ...
+      'St. Croix (NWA) leatherbacks for a 2.85 year remigration interval is 127 kg/d. Leatherback prey energy content is ', ... 
+      '310 kJ/kg wet mass from Davenport & Balazs 1991). For a 400 kg turtle, this would be 127/400*310000/24/60/60', ...
+      'previous version: adult about 350 kg, 82 kg jelly fish/d for 250-450 kg turtle with 200 J/g  = 82/350*200000/24/60/60 = 0.5423 W/kg. '};
 
 % uni-variate data
 % Table 3.1 in Jones 2009: used ONLY PARTLY, because data after 1.3 years dominated by 2 individuals, 
@@ -193,7 +198,7 @@ tLW_Jone(:,1) = 365 * tLW_Jone(:,1); % convert yr to d
 tLW_Jone(:,3) = 1e3 * tLW_Jone(:,3); % convert kg to g
 
 data.tL_Jone = tLW_Jone(1:Nind(1)-1,1:2); % all data with four or more individiduals 
-units.tL_Jone   = {'d', 'cm'};  label.tL_Jone = {'time since birth', 'straight carapace length, Jones'};  
+units.tL_Jone   = {'d', 'cm'};  label.tL_Jone = {'time since birth', 'straight carapace length, from Jones'};  
 temp.tL_Jone    = C2K(24);  units.temp.tL_Jone = 'K'; label.temp.tL_Jone = 'temperature';
 bibkey.tL_Jone = 'Jone2009';
 comment.tL_Jone = ['data from Table 3.1, captive animals, fed with Pacific Ocean squid, Todarodes pacificus; '...
@@ -201,12 +206,12 @@ comment.tL_Jone = ['data from Table 3.1, captive animals, fed with Pacific Ocean
   'blended with unflavored gelatin in hot water.'];
 %
 data.tW_Jone = tLW_Jone(1:Nind(1)-1,[1 3]); 
-units.tW_Jone   = {'d', 'g'};  label.tW_Jone = {'time since birth', 'wet weight, Jones'};  
+units.tW_Jone   = {'d', 'g'};  label.tW_Jone = {'time since birth', 'wet weight, from Jones'};  
 temp.tW_Jone    = C2K(24);  units.temp.tW_Jone = 'K'; label.temp.tW_Jone = 'temperature';
 bibkey.tW_Jone = 'Jone2009';
 
 data.LW_Jone = tLW_Jone(1:Nind(1)-1,[2 3]); 
-units.LW_Jone   = {'cm', 'g'};  label.LW_Jone = {'straight carapace length', 'wet weight, Jones'};  
+units.LW_Jone   = {'cm', 'g'};  label.LW_Jone = {'straight carapace length', 'wet weight, from Jones'};  
 bibkey.LW_Jone = 'Jone2009';
 % 
 % % data below used for information only (only 3 or fewer individuals)
@@ -277,20 +282,20 @@ tLW_cap(:,1) = 365 * tLW_cap(:,1); % convert yr to d
 tLW_cap(:,3) = 1e3 * tLW_cap(:,3); % convert kg to g
 
 data.tL_cap = tLW_cap(:,1:2); % age, length
-units.tL_cap   = {'d', 'cm'};  label.tL_cap = {'time since birth', 'straight carapace length, Jones captive mix'};  
+units.tL_cap   = {'d', 'cm'};  label.tL_cap = {'time since birth', 'straight carapace length, from Jones'};  
 temp.tL_cap    = C2K(24);  units.temp.tL_cap = 'K'; label.temp.tL_cap = 'temperature';
 bibkey.tL_cap = 'Jone2009';
 comment.tL_cap = 'data from Table 3.2, captive animals. ''This study''from Jones 2009, other data from corresponding refs)';
 
 use = find(~isnan(tLW_cap(:,3)));
 data.tW_cap = tLW_cap(use,[1,3]); % age, wet weight
-units.tW_cap   = {'d', 'g'};  label.tW_cap = {'time since birth', 'wet weight, Jones captive mix'};  
+units.tW_cap   = {'d', 'g'};  label.tW_cap = {'time since birth', 'wet weight, from Jones'};  
 temp.tW_cap    = C2K(24);  units.temp.tW_cap = 'K'; label.temp.tW_cap = 'temperature';
 bibkey.tW_cap = 'Jone2009';
 comment.tW_cap = 'data from Table 3.2, captive animals. ''This study''from Jones 2009, other data from corresponding refs)';
 
 data.LW_cap = tLW_cap(use,[2,3]); % SCL, wet weight
-units.LW_cap   = {'cm', 'g'};  label.LW_cap = {'straight carapace length', 'wet weight, Jones captive mix'};  
+units.LW_cap   = {'cm', 'g'};  label.LW_cap = {'straight carapace length', 'wet weight, from Jones'};  
 bibkey.LW_cap = 'Jone2009';
 
 
@@ -309,7 +314,7 @@ LW_wild = [39.00	7	%MTN(1996)
 ];
 LW_wild = sort(LW_wild); %sort by length
 data.LW_wild = [LW_wild(:,1), LW_wild(:,2)*1e3]; % SCL, wet weight
-units.LW_wild   = {'cm', 'g'};  label.LW_wild = {'straight carapace length', 'wet weight, Jones wild'};  
+units.LW_wild   = {'cm', 'g'};  label.LW_wild = {'straight carapace length', 'wet weight, from Jones'};  
 bibkey.LW_wild = 'Jone2009';
 
 
@@ -653,6 +658,27 @@ bibkey = 'Jone2009'; type = 'Phdthesis'; bib = [ ...
 'title = {Energetics of the leatherback turtle, \emph{Dermochelys coriacea}}, ' ...
 'howpublished = {\url{https://circle.ubc.ca/handle/2429/7454?show=full}}, ' ...
 'school = {Univ Britisch columbia (Vancouver)}'];
+metaData.biblist.(bibkey) = ['''@', type, '{', bibkey, ', ' bib, '}'';'];
+%
+bibkey= 'Lutc1992'; type = 'Article'; bib =[ ...
+  'title={Oxygen stores and aerobic metabolism in the leatherback sea turtle},' ...
+  'author={Lutcavage, Molly E and BUsHNELL, PETER G and JoNEs, DAVID R},' ...
+  'journal={Canadian Journal of Zoology},' ...
+  'volume={70},' ...
+  'number={2},' ...
+  'pages={348--351},' ...
+  'year={1992},' ...
+  'publisher={NRC Research Press Ottawa, Canada}'];
+metaData.biblist.(bibkey) = ['''@', type, '{', bibkey, ', ' bib, '}'';'];
+%
+bibkey= '{Pala1996'; type = 'Article'; bib =[ ...
+  'title={Respiratory Physiology of Adult Leatherback Turtles(\emph{Dermochelys coriacea}) While Nesting on Land},' ...
+  'author={Paladino, FV and Spotila, JR and O''Connor, MP and Gatten Jr, RE},' ...
+  'journal={Chelonian Conservation and Biology},' ...
+  'volume={2},' ...
+  'number={2},' ...
+  'pages={223--229},' ...
+  'year={1996}'];
 metaData.biblist.(bibkey) = ['''@', type, '{', bibkey, ', ' bib, '}'';'];
 %
 bibkey = 'Thom1993'; type = 'Article'; bib = [ ... 
